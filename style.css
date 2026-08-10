@@ -48,26 +48,24 @@ nav {
 }
 
 
-/* Logo */
+/* AiSmartOS Header Logo */
 
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
-
     color: #ffffff;
     text-decoration: none;
-
     font-size: 22px;
     font-weight: bold;
 }
 
 .logo img {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     object-fit: contain;
+    border-radius: 10px;
 }
-
 
 /* Navigation Links */
 
