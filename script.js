@@ -1,22 +1,22 @@
-// =========================
-// AiSmartOS Website JavaScript
-// =========================
+// =====================================================
+// AiSmartOS WEBSITE JAVASCRIPT
+// =====================================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log(
-        "AiSmartOS website loaded successfully!"
-    );
+    console.log("AiSmartOS website loaded successfully.");
 
 
-    // =========================
-    // MOBILE DRAWER ELEMENTS
-    // =========================
+    // =================================================
+    // ELEMENTS
+    // =================================================
+
+    const body = document.body;
 
     const menuButton =
         document.getElementById("menu-button");
 
-    const mobileDrawer =
+    const drawer =
         document.getElementById("mobile-drawer");
 
     const drawerClose =
@@ -26,50 +26,48 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("drawer-overlay");
 
     const drawerLinks =
-        document.querySelectorAll(
-            ".drawer-links a"
-        );
+        document.querySelectorAll(".drawer-links a");
+
+    const navLinks =
+        document.querySelectorAll(".nav-links a");
+
+    const heroButtons =
+        document.querySelectorAll(".hero-buttons a");
 
 
-    // =========================
-    // CHECK ELEMENTS
-    // =========================
+    // =================================================
+    // SAFETY CHECK
+    // =================================================
 
     if (
         !menuButton ||
-        !mobileDrawer ||
+        !drawer ||
         !drawerClose ||
         !drawerOverlay
     ) {
 
         console.error(
-            "AiSmartOS: Mobile drawer elements not found."
+            "AiSmartOS: Navigation drawer elements not found."
         );
 
         return;
     }
 
 
-    // =========================
+    // =================================================
     // OPEN DRAWER
-    // =========================
+    // =================================================
 
     function openDrawer() {
 
-        mobileDrawer.classList.add("open");
-
-        drawerOverlay.classList.add("open");
-
-        document.body.classList.add(
-            "drawer-open"
-        );
+        body.classList.add("drawer-open");
 
         menuButton.setAttribute(
             "aria-expanded",
             "true"
         );
 
-        mobileDrawer.setAttribute(
+        drawer.setAttribute(
             "aria-hidden",
             "false"
         );
@@ -79,32 +77,28 @@ document.addEventListener("DOMContentLoaded", function () {
             "false"
         );
 
-        console.log(
-            "Mobile navigation drawer opened."
-        );
+        // Prevent page from scrolling behind drawer
+
+        body.style.overflow = "hidden";
+
+        console.log("Navigation drawer opened.");
     }
 
 
-    // =========================
+    // =================================================
     // CLOSE DRAWER
-    // =========================
+    // =================================================
 
     function closeDrawer() {
 
-        mobileDrawer.classList.remove("open");
-
-        drawerOverlay.classList.remove("open");
-
-        document.body.classList.remove(
-            "drawer-open"
-        );
+        body.classList.remove("drawer-open");
 
         menuButton.setAttribute(
             "aria-expanded",
             "false"
         );
 
-        mobileDrawer.setAttribute(
+        drawer.setAttribute(
             "aria-hidden",
             "true"
         );
@@ -114,23 +108,29 @@ document.addEventListener("DOMContentLoaded", function () {
             "true"
         );
 
-        console.log(
-            "Mobile navigation drawer closed."
-        );
+        // Restore scrolling
+
+        body.style.overflow = "";
+
+        console.log("Navigation drawer closed.");
     }
 
 
-    // =========================
+    // =================================================
     // HAMBURGER CLICK
-    // =========================
+    // =================================================
 
     menuButton.addEventListener(
         "click",
-        function () {
+        function (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
 
             if (
-                mobileDrawer.classList.contains(
-                    "open"
+                body.classList.contains(
+                    "drawer-open"
                 )
             ) {
 
@@ -146,29 +146,37 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =========================
+    // =================================================
     // CLOSE BUTTON
-    // =========================
+    // =================================================
 
     drawerClose.addEventListener(
         "click",
-        closeDrawer
+        function () {
+
+            closeDrawer();
+
+        }
     );
 
 
-    // =========================
+    // =================================================
     // OVERLAY CLICK
-    // =========================
+    // =================================================
 
     drawerOverlay.addEventListener(
         "click",
-        closeDrawer
+        function () {
+
+            closeDrawer();
+
+        }
     );
 
 
-    // =========================
-    // DRAWER NAVIGATION
-    // =========================
+    // =================================================
+    // DRAWER LINKS
+    // =================================================
 
     drawerLinks.forEach(
         function (link) {
@@ -186,9 +194,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =========================
-    // ESCAPE KEY
-    // =========================
+    // =================================================
+    // ESC KEY
+    // =================================================
 
     document.addEventListener(
         "keydown",
@@ -196,8 +204,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (
                 event.key === "Escape" &&
-                mobileDrawer.classList.contains(
-                    "open"
+                body.classList.contains(
+                    "drawer-open"
                 )
             ) {
 
@@ -209,37 +217,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =========================
-    // RESIZE PROTECTION
-    // =========================
-
-    window.addEventListener(
-        "resize",
-        function () {
-
-            if (
-                window.innerWidth > 800 &&
-                mobileDrawer.classList.contains(
-                    "open"
-                )
-            ) {
-
-                closeDrawer();
-
-            }
-
-        }
-    );
-
-
-    // =========================
+    // =================================================
     // DESKTOP NAVIGATION
-    // =========================
-
-    const navLinks =
-        document.querySelectorAll(
-            ".nav-links a"
-        );
+    // =================================================
 
     navLinks.forEach(
         function (link) {
@@ -260,14 +240,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =========================
+    // =================================================
     // HERO BUTTONS
-    // =========================
-
-    const heroButtons =
-        document.querySelectorAll(
-            ".hero-buttons a"
-        );
+    // =================================================
 
     heroButtons.forEach(
         function (button) {
@@ -288,9 +263,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    // =========================
+    // =================================================
     // FEATURE CARDS
-    // =========================
+    // =================================================
 
     const featureCards =
         document.querySelectorAll(
@@ -304,20 +279,49 @@ document.addEventListener("DOMContentLoaded", function () {
                 "click",
                 function () {
 
-                    const titleElement =
+                    const title =
                         card.querySelector("h3");
 
-                    if (!titleElement) {
-                        return;
-                    }
+                    if (title) {
 
-                    console.log(
-                        "Feature selected:",
-                        titleElement.textContent.trim()
-                    );
+                        console.log(
+                            "Feature selected:",
+                            title.textContent.trim()
+                        );
+
+                    }
 
                 }
             );
+
+        }
+    );
+
+
+    // =================================================
+    // RESPONSIVE SAFETY
+    // =================================================
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            /*
+             * If the user opens the drawer and then
+             * rotates/resizes the device to desktop,
+             * automatically close the drawer.
+             */
+
+            if (
+                window.innerWidth > 800 &&
+                body.classList.contains(
+                    "drawer-open"
+                )
+            ) {
+
+                closeDrawer();
+
+            }
 
         }
     );
