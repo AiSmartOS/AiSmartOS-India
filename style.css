@@ -1,6 +1,6 @@
-/* =========================
+/* =====================================================
    BASIC RESET
-========================= */
+===================================================== */
 
 * {
     margin: 0;
@@ -10,95 +10,77 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: 85px;
 }
 
 body {
     font-family: Arial, sans-serif;
+
     background: #070b17;
+
     color: #ffffff;
+
     line-height: 1.6;
+
+    overflow-x: hidden;
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* =====================================================
+   FIXED HEADER
+===================================================== */
 
 header {
-    position: sticky;
+    position: fixed;
+
     top: 0;
-    z-index: 1000;
+    left: 0;
+    right: 0;
 
-    background: rgba(7, 11, 23, 0.9);
+    width: 100%;
 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    z-index: 5000;
+
+    background: rgba(7, 11, 23, 0.88);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+
+/* =====================================================
+   NAV
+===================================================== */
+
 nav {
+    width: 100%;
     max-width: 1200px;
+
+    height: 78px;
+
     margin: auto;
 
-    padding: 18px 25px;
+    padding: 12px 25px;
 
     display: flex;
+
     align-items: center;
+
+    justify-content: space-between;
 
     gap: 25px;
 }
 
 
-/* =========================
-   MOBILE MENU BUTTON
-========================= */
-
-.menu-button {
-    display: none;
-
-    width: 42px;
-    height: 42px;
-
-    flex-shrink: 0;
-
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid rgba(255, 255, 255, 0.12);
-
-    border-radius: 10px;
-
-    background: rgba(255, 255, 255, 0.06);
-
-    color: #ffffff;
-
-    font-size: 23px;
-    line-height: 1;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
-}
-
-.menu-button:hover {
-    background: rgba(255, 255, 255, 0.12);
-}
-
-.menu-button:active {
-    transform: scale(0.94);
-}
-
-
-/* =========================
+/* =====================================================
    LOGO
-========================= */
+===================================================== */
 
 .logo {
     display: flex;
+
     align-items: center;
 
     gap: 10px;
@@ -112,6 +94,8 @@ nav {
     font-weight: bold;
 
     white-space: nowrap;
+
+    z-index: 10;
 }
 
 .logo img {
@@ -126,17 +110,16 @@ nav {
 }
 
 
-/* =========================
-   DESKTOP NAV LINKS
-========================= */
+/* =====================================================
+   DESKTOP NAVIGATION
+===================================================== */
 
 .nav-links {
     display: flex;
 
-    gap: 25px;
+    align-items: center;
 
-    margin-left: auto;
-    margin-right: auto;
+    gap: 25px;
 }
 
 .nav-links a {
@@ -144,7 +127,7 @@ nav {
 
     text-decoration: none;
 
-    transition: 0.3s;
+    transition: color 0.25s ease;
 }
 
 .nav-links a:hover {
@@ -152,279 +135,110 @@ nav {
 }
 
 
-/* =========================
-   SIGN IN
-========================= */
+/* =====================================================
+   SIGN IN BUTTON
+===================================================== */
 
 .nav-button {
     padding: 10px 18px;
 
-    color: white;
+    color: #ffffff;
 
     text-decoration: none;
 
     border-radius: 10px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #4267ff,
-            #8b5cf6
-        );
+    background: linear-gradient(
+        135deg,
+        #4267ff,
+        #8b5cf6
+    );
 
-    transition: 0.3s;
-
-    white-space: nowrap;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .nav-button:hover {
     transform: translateY(-2px);
-}
-
-
-/* =========================
-   MOBILE DRAWER
-========================= */
-
-.mobile-drawer {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: min(320px, 84vw);
-    height: 100dvh;
-
-    z-index: 9999;
-
-    padding: 22px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    background:
-        linear-gradient(
-            160deg,
-            rgba(15, 23, 42, 0.98),
-            rgba(7, 11, 23, 0.99)
-        );
-
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
 
     box-shadow:
-        15px 0 50px rgba(0, 0, 0, 0.45);
-
-    transform: translateX(-110%);
-
-    visibility: hidden;
-
-    transition:
-        transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-        visibility 0s linear 0.32s;
-}
-
-.mobile-drawer.open {
-    transform: translateX(0);
-
-    visibility: visible;
-
-    transition:
-        transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-        visibility 0s linear 0s;
+        0 8px 25px rgba(80, 90, 255, 0.3);
 }
 
 
-/* =========================
-   DRAWER HEADER
-========================= */
+/* =====================================================
+   MOBILE MENU BUTTON
+===================================================== */
 
-.drawer-header {
-    display: flex;
+.menu-button {
+    display: none;
 
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding-bottom: 20px;
-
-    border-bottom:
-        1px solid rgba(255, 255, 255, 0.08);
-}
-
-.drawer-logo {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    font-size: 20px;
-
-    font-weight: bold;
-}
-
-.drawer-logo img {
-    width: 38px;
-    height: 38px;
-
-    object-fit: contain;
-
-    border-radius: 9px;
-}
-
-
-/* =========================
-   DRAWER CLOSE BUTTON
-========================= */
-
-.drawer-close {
-    width: 40px;
-    height: 40px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid rgba(255, 255, 255, 0.12);
-
-    border-radius: 10px;
-
-    background: rgba(255, 255, 255, 0.06);
-
-    color: #ffffff;
-
-    font-size: 28px;
-
-    line-height: 1;
-
-    cursor: pointer;
-
-    transition: background 0.2s ease;
-}
-
-.drawer-close:hover {
-    background: rgba(255, 255, 255, 0.13);
-}
-
-
-/* =========================
-   DRAWER LINKS
-========================= */
-
-.drawer-links {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-
-    margin-top: 25px;
-}
-
-.drawer-links a {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    padding: 13px 14px;
-
-    border-radius: 12px;
-
-    color: #cbd5e1;
-
-    text-decoration: none;
-
-    font-size: 16px;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.drawer-links a span:first-child {
-    width: 25px;
+    width: 46px;
+    height: 46px;
 
     flex-shrink: 0;
 
-    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
 
-    font-size: 18px;
+    border-radius: 13px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    cursor: pointer;
+
+    padding: 10px;
+
+    z-index: 20;
 }
 
-.drawer-links a:hover {
-    color: #ffffff;
+.menu-button span {
+    display: block;
 
-    background:
-        rgba(100, 120, 255, 0.12);
+    width: 25px;
+    height: 3px;
 
-    transform: translateX(3px);
-}
+    margin: 5px auto;
 
+    border-radius: 5px;
 
-/* =========================
-   DRAWER SIGN IN
-========================= */
-
-.drawer-signin {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 9px;
-
-    margin-top: auto;
-
-    padding: 13px 18px;
-
-    border-radius: 12px;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    font-weight: bold;
-
-    background:
-        linear-gradient(
-            135deg,
-            #4267ff,
-            #8b5cf6
-        );
+    background: #ffffff;
 
     transition:
-        transform 0.2s ease,
-        opacity 0.2s ease;
-}
-
-.drawer-signin:hover {
-    transform: translateY(-2px);
+        transform 0.25s ease,
+        opacity 0.25s ease;
 }
 
 
-/* =========================
-   DRAWER BACKGROUND OVERLAY
-========================= */
+/* =====================================================
+   HAMBURGER → X
+===================================================== */
+
+body.drawer-open .menu-button span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+body.drawer-open .menu-button span:nth-child(2) {
+    opacity: 0;
+}
+
+body.drawer-open .menu-button span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+/* =====================================================
+   MOBILE DRAWER OVERLAY
+===================================================== */
 
 .drawer-overlay {
     position: fixed;
 
     inset: 0;
 
-    z-index: 9998;
+    z-index: 6000;
 
-    background:
-        rgba(7, 11, 23, 0.18);
+    background: rgba(0, 0, 0, 0.25);
 
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -440,7 +254,7 @@ nav {
         visibility 0.3s ease;
 }
 
-.drawer-overlay.open {
+body.drawer-open .drawer-overlay {
     opacity: 1;
 
     visibility: visible;
@@ -449,21 +263,215 @@ nav {
 }
 
 
-/* =========================
-   LOCK PAGE SCROLL
-========================= */
+/* =====================================================
+   MOBILE DRAWER
+===================================================== */
 
-body.drawer-open {
-    overflow: hidden;
+.mobile-drawer {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    width: min(320px, 85vw);
+
+    z-index: 7000;
+
+    background: rgba(10, 15, 32, 0.96);
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+    box-shadow:
+        15px 0 50px rgba(0, 0, 0, 0.35);
+
+    transform: translateX(-105%);
+
+    transition:
+        transform 0.32s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+    visibility: hidden;
+
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+}
+
+body.drawer-open .mobile-drawer {
+    transform: translateX(0);
+
+    visibility: visible;
 }
 
 
-/* =========================
+/* =====================================================
+   DRAWER HEADER
+===================================================== */
+
+.drawer-header {
+    min-height: 78px;
+
+    padding: 14px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.drawer-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.drawer-title img {
+    width: 40px;
+    height: 40px;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   DRAWER CLOSE
+===================================================== */
+
+.drawer-close {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #ffffff;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.drawer-close:hover {
+    background: rgba(255, 255, 255, 0.15);
+
+    transform: rotate(90deg);
+}
+
+
+/* =====================================================
+   DRAWER LINKS
+===================================================== */
+
+.drawer-links {
+    padding: 20px 15px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.drawer-links a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    color: #dbe2ff;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.drawer-links a span {
+    width: 25px;
+
+    text-align: center;
+
+    font-size: 20px;
+}
+
+.drawer-links a:hover,
+.drawer-links a:active {
+    color: #ffffff;
+
+    background: rgba(100, 120, 255, 0.14);
+
+    transform: translateX(4px);
+}
+
+
+/* =====================================================
+   DRAWER FOOTER
+===================================================== */
+
+.drawer-footer {
+    padding: 25px 20px;
+
+    margin-top: auto;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    color: #7f89a5;
+
+    font-size: 13px;
+}
+
+.drawer-footer p {
+    color: #ffffff;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+
+
+/* =====================================================
    HERO
-========================= */
+===================================================== */
 
 #home {
-    min-height: 90vh;
+    min-height: 100vh;
 
     display: flex;
 
@@ -473,7 +481,7 @@ body.drawer-open {
 
     text-align: center;
 
-    padding: 80px 25px;
+    padding: 130px 25px 80px;
 
     background:
         radial-gradient(
@@ -487,7 +495,7 @@ body.drawer-open {
     max-width: 850px;
 }
 
-.hero-content > p:first-child {
+.hero-country {
     color: #8fa5ff;
 
     font-weight: bold;
@@ -496,18 +504,17 @@ body.drawer-open {
 }
 
 .hero-content h1 {
-    font-size:
-        clamp(55px, 10vw, 100px);
+    font-size: clamp(55px, 10vw, 100px);
 
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff,
-            #718cff,
-            #a875ff
-        );
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #718cff,
+        #a875ff
+    );
 
     -webkit-background-clip: text;
+
     background-clip: text;
 
     color: transparent;
@@ -516,25 +523,23 @@ body.drawer-open {
 }
 
 .hero-content h2 {
-    font-size:
-        clamp(25px, 4vw, 45px);
+    font-size: clamp(25px, 4vw, 45px);
 
     margin-bottom: 25px;
 }
 
-.hero-content p {
+.hero-content > p:not(.hero-country) {
     color: #aab3cc;
 
     max-width: 700px;
 
-    margin:
-        0 auto 30px;
+    margin: 0 auto 30px;
 }
 
 
-/* =========================
+/* =====================================================
    HERO BUTTONS
-========================= */
+===================================================== */
 
 .hero-buttons {
     display: flex;
@@ -551,28 +556,32 @@ body.drawer-open {
 
     border-radius: 12px;
 
-    color: white;
+    color: #ffffff;
 
     text-decoration: none;
 
-    background:
-        linear-gradient(
-            135deg,
-            #4267ff,
-            #8b5cf6
-        );
+    background: linear-gradient(
+        135deg,
+        #4267ff,
+        #8b5cf6
+    );
 
-    transition: 0.3s;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .hero-buttons a:hover {
     transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 30px rgba(80, 90, 255, 0.25);
 }
 
 
-/* =========================
+/* =====================================================
    GENERAL SECTIONS
-========================= */
+===================================================== */
 
 section {
     max-width: 1200px;
@@ -593,17 +602,16 @@ section > p {
 }
 
 
-/* =========================
+/* =====================================================
    FEATURES
-========================= */
+===================================================== */
 
 .features-container {
     margin-top: 45px;
 
     display: grid;
 
-    grid-template-columns:
-        repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 20px;
 }
@@ -613,23 +621,22 @@ section > p {
 
     border-radius: 20px;
 
-    background:
-        rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.04);
 
-    border:
-        1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease;
 }
 
 .features-container article:hover {
     transform: translateY(-6px);
 
-    border-color:
-        rgba(100, 120, 255, 0.5);
+    border-color: rgba(100, 120, 255, 0.5);
 
-    background:
-        rgba(100, 120, 255, 0.08);
+    background: rgba(100, 120, 255, 0.08);
 }
 
 .features-container h3 {
@@ -643,9 +650,9 @@ section > p {
 }
 
 
-/* =========================
-   SECTIONS ALIGNMENT
-========================= */
+/* =====================================================
+   CENTERED SECTIONS
+===================================================== */
 
 #ace-ai,
 #system,
@@ -656,9 +663,9 @@ section > p {
 }
 
 
-/* =========================
+/* =====================================================
    CONTACT
-========================= */
+===================================================== */
 
 #contact {
     padding-bottom: 100px;
@@ -697,11 +704,9 @@ section > p {
 
     text-decoration: none;
 
-    background:
-        rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.04);
 
-    border:
-        1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
     border-radius: 16px;
 
@@ -714,11 +719,9 @@ section > p {
 .social-media a:hover {
     transform: translateY(-5px);
 
-    border-color:
-        rgba(100, 120, 255, 0.5);
+    border-color: rgba(100, 120, 255, 0.5);
 
-    background:
-        rgba(100, 120, 255, 0.08);
+    background: rgba(100, 120, 255, 0.08);
 }
 
 .social-media a span {
@@ -730,17 +733,16 @@ section > p {
 }
 
 
-/* =========================
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
 footer {
     text-align: center;
 
     padding: 40px 20px;
 
-    border-top:
-        1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 
     color: #7f89a5;
 }
@@ -750,57 +752,85 @@ footer p {
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* =====================================================
+   TABLET / MOBILE
+===================================================== */
 
 @media (max-width: 800px) {
 
+    /* MOBILE HEADER */
+
+    header {
+        z-index: 5000;
+    }
+
     nav {
-        padding: 15px 18px;
+        height: 68px;
+
+        padding: 10px 15px;
 
         gap: 10px;
     }
 
 
-    /* Hamburger visible */
+    /* HAMBURGER */
 
     .menu-button {
-        display: flex;
+        display: block;
     }
 
 
-    /* Desktop links hidden */
+    /* CENTER LOGO */
+
+    .logo {
+        position: absolute;
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        font-size: 19px;
+
+        gap: 8px;
+    }
+
+    .logo img {
+        width: 38px;
+        height: 38px;
+    }
+
+
+    /* HIDE DESKTOP LINKS */
 
     .nav-links {
         display: none;
     }
 
 
-    /* Logo takes available space */
-
-    .logo {
-        margin-right: auto;
-
-        font-size: 19px;
-    }
-
-    .logo img {
-        width: 36px;
-        height: 36px;
-    }
-
-
-    /* Sign In */
+    /* SIGN IN */
 
     .nav-button {
+        margin-left: auto;
+
         padding: 9px 14px;
 
         font-size: 14px;
     }
 
 
-    /* Features */
+    /* HERO */
+
+    #home {
+        min-height: 100vh;
+
+        padding:
+            110px
+            20px
+            70px;
+    }
+
+
+    /* FEATURES */
 
     .features-container {
         grid-template-columns: 1fr;
@@ -808,7 +838,7 @@ footer p {
 
 
     section {
-        padding: 70px 20px;
+        padding: 75px 20px;
     }
 
     section h2 {
@@ -816,23 +846,7 @@ footer p {
     }
 
 
-    /* Hero */
-
-    .hero-content h1 {
-        font-size:
-            clamp(48px, 16vw, 75px);
-    }
-
-    .hero-content h2 {
-        font-size: 28px;
-    }
-
-    .hero-content p {
-        font-size: 15px;
-    }
-
-
-    /* Contact */
+    /* SOCIAL */
 
     .social-media {
         flex-direction: column;
@@ -847,64 +861,62 @@ footer p {
 
         min-width: 0;
     }
-
 }
 
 
-/* =========================
+/* =====================================================
    SMALL MOBILE
-========================= */
+===================================================== */
 
 @media (max-width: 480px) {
 
     nav {
-        padding: 12px 15px;
-
-        gap: 8px;
+        padding: 9px 12px;
     }
-
 
     .menu-button {
-        width: 38px;
-        height: 38px;
-
-        font-size: 21px;
+        width: 44px;
+        height: 44px;
     }
 
-
     .logo {
-        font-size: 17px;
-
-        gap: 7px;
+        font-size: 16px;
     }
 
     .logo img {
-        width: 34px;
-        height: 34px;
+        width: 35px;
+        height: 35px;
     }
 
-
     .nav-button {
-        padding: 8px 10px;
+        padding: 8px 12px;
 
         font-size: 13px;
     }
 
 
     #home {
-        min-height: 85vh;
-
-        padding: 60px 18px;
+        padding:
+            100px
+            18px
+            60px;
     }
 
 
-    section {
-        padding: 60px 18px;
+    .hero-content h1 {
+        font-size: clamp(
+            48px,
+            16vw,
+            75px
+        );
     }
 
-
-    section h2 {
+    .hero-content h2 {
         font-size: 28px;
+    }
+
+    .hero-content > p:not(.hero-country) {
+        font-size: 15px;
     }
 
 
@@ -929,10 +941,4 @@ footer p {
     .social-media a {
         padding: 18px;
     }
-
-
-    .mobile-drawer {
-        padding: 18px;
-    }
-
 }
