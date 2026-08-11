@@ -1,6 +1,6 @@
-/* =====================================================
-   BASIC RESET
-===================================================== */
+/* =========================================
+   RESET
+========================================= */
 
 * {
     margin: 0;
@@ -10,7 +10,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px;
+    scroll-padding-top: 85px;
 }
 
 body {
@@ -26,32 +26,35 @@ body.drawer-open {
 }
 
 
-/* =====================================================
+/* =========================================
    FIXED HEADER
-===================================================== */
+========================================= */
 
 header {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+
     width: 100%;
 
     z-index: 5000;
 
-    background: rgba(7, 11, 23, 0.92);
+    background: rgba(7, 11, 23, 0.88);
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 nav {
     max-width: 1200px;
+
     height: 82px;
 
     margin: auto;
-    padding: 15px 25px;
+    padding: 0 25px;
 
     display: flex;
     align-items: center;
@@ -60,9 +63,9 @@ nav {
 }
 
 
-/* =====================================================
+/* =========================================
    LOGO
-===================================================== */
+========================================= */
 
 .logo {
     display: flex;
@@ -87,15 +90,15 @@ nav {
 
     object-fit: contain;
 
-    display: block;
-
     border-radius: 10px;
+
+    display: block;
 }
 
 
-/* =====================================================
+/* =========================================
    DESKTOP NAVIGATION
-===================================================== */
+========================================= */
 
 .nav-links {
     display: flex;
@@ -106,7 +109,7 @@ nav {
 
     gap: 25px;
 
-    margin-left: auto;
+    flex: 1;
 }
 
 .nav-links a {
@@ -114,33 +117,28 @@ nav {
 
     text-decoration: none;
 
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
+    transition: 0.25s ease;
+
+    white-space: nowrap;
 }
 
 .nav-links a:hover {
-    color: #6c8cff;
+    color: #7c91ff;
 }
 
 
-/* =====================================================
-   SIGN IN BUTTON
-===================================================== */
+/* =========================================
+   SIGN IN
+========================================= */
 
 .nav-button {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 10px 18px;
+    padding: 11px 19px;
 
     color: #ffffff;
 
     text-decoration: none;
 
-    border-radius: 10px;
+    border-radius: 11px;
 
     background: linear-gradient(
         135deg,
@@ -148,115 +146,379 @@ nav {
         #8b5cf6
     );
 
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-
-    white-space: nowrap;
+    transition: 0.25s ease;
 
     flex-shrink: 0;
 }
 
 .nav-button:hover {
     transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 25px rgba(80, 100, 255, 0.3);
 }
 
 
-/* =====================================================
-   HEADER ACCOUNT
-===================================================== */
+/* =========================================
+   MENU BUTTON
+========================================= */
 
-.header-account {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    white-space: nowrap;
-}
-
-.header-account img {
-    width: 38px;
-    height: 38px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-
-/* =====================================================
-   MOBILE MENU BUTTON
-===================================================== */
-
-.menu-toggle {
+.menu-button {
     display: none;
 
     width: 48px;
     height: 48px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255,255,255,0.12);
 
     border-radius: 14px;
 
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255,255,255,0.07);
 
     cursor: pointer;
 
+    padding: 10px;
+
     flex-shrink: 0;
 
-    align-items: center;
-    justify-content: center;
-
-    flex-direction: column;
-
-    gap: 5px;
-
-    transition:
-        background 0.3s ease,
-        transform 0.3s ease;
+    z-index: 6000;
 }
 
-.menu-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
+.menu-button span {
+    display: block;
 
-.menu-toggle span {
-    width: 25px;
+    width: 100%;
     height: 3px;
+
+    margin: 5px 0;
 
     border-radius: 5px;
 
     background: #ffffff;
 
-    transition:
-        transform 0.3s ease,
-        opacity 0.3s ease;
+    transition: 0.3s ease;
 }
 
 
-/* =====================================================
-   MAIN
-===================================================== */
+/* =========================================
+   DRAWER OVERLAY
+========================================= */
+
+.drawer-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.38);
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+    z-index: 7000;
+}
+
+.drawer-overlay.active {
+    opacity: 1;
+
+    visibility: visible;
+}
+
+
+/* =========================================
+   MOBILE DRAWER
+========================================= */
+
+.mobile-drawer {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: min(330px, 85vw);
+
+    height: 100vh;
+
+    background: rgba(9, 14, 30, 0.96);
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    border-right: 1px solid rgba(255,255,255,0.1);
+
+    transform: translateX(-105%);
+
+    transition:
+        transform 0.32s cubic-bezier(.4,0,.2,1);
+
+    z-index: 8000;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow-y: auto;
+}
+
+.mobile-drawer.active {
+    transform: translateX(0);
+}
+
+
+/* =========================================
+   DRAWER HEADER
+========================================= */
+
+.drawer-header {
+    height: 82px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+
+    flex-shrink: 0;
+}
+
+.drawer-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.drawer-title img {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 10px;
+
+    object-fit: contain;
+}
+
+.drawer-close {
+    width: 42px;
+    height: 42px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.07);
+
+    color: #ffffff;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   DRAWER NAVIGATION
+========================================= */
+
+.drawer-navigation {
+    padding: 20px 14px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.drawer-navigation a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 14px 16px;
+
+    border-radius: 12px;
+
+    color: #dce2f5;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    transition: 0.2s ease;
+}
+
+.drawer-navigation a span {
+    width: 25px;
+
+    text-align: center;
+
+    font-size: 20px;
+}
+
+.drawer-navigation a:hover,
+.drawer-navigation a:active {
+    background: rgba(100,120,255,0.12);
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   DRAWER BOTTOM
+========================================= */
+
+.drawer-bottom {
+    margin-top: auto;
+
+    padding: 15px;
+
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+/* Account */
+
+.drawer-account {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border-radius: 14px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    background: rgba(255,255,255,0.04);
+
+    border: 1px solid rgba(255,255,255,0.06);
+
+    transition: 0.2s ease;
+}
+
+.drawer-account:hover {
+    background: rgba(100,120,255,0.1);
+}
+
+.account-avatar {
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #4267ff,
+        #8b5cf6
+    );
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+.account-avatar img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.account-info {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+.account-info strong {
+    font-size: 15px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.account-info small {
+    color: #8994b0;
+
+    font-size: 12px;
+}
+
+
+/* Settings */
+
+.drawer-settings {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 14px 12px;
+
+    border-radius: 12px;
+
+    color: #cbd3e9;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.drawer-settings:hover {
+    color: #ffffff;
+
+    background: rgba(255,255,255,0.06);
+}
+
+.settings-icon {
+    font-size: 21px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
 
 main {
     padding-top: 82px;
 }
-
-
-/* =====================================================
-   HERO
-===================================================== */
 
 #home {
     min-height: calc(100vh - 82px);
@@ -264,6 +526,7 @@ main {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     text-align: center;
@@ -282,7 +545,7 @@ main {
     max-width: 850px;
 }
 
-.hero-content > p:first-child {
+.hero-country {
     color: #8fa5ff;
 
     font-weight: bold;
@@ -301,6 +564,7 @@ main {
     );
 
     -webkit-background-clip: text;
+
     background-clip: text;
 
     color: transparent;
@@ -314,7 +578,7 @@ main {
     margin-bottom: 25px;
 }
 
-.hero-content p {
+.hero-content > p:not(.hero-country) {
     color: #aab3cc;
 
     max-width: 700px;
@@ -323,9 +587,9 @@ main {
 }
 
 
-/* =====================================================
+/* =========================================
    HERO BUTTONS
-===================================================== */
+========================================= */
 
 .hero-buttons {
     display: flex;
@@ -342,7 +606,7 @@ main {
 
     border-radius: 12px;
 
-    color: #ffffff;
+    color: white;
 
     text-decoration: none;
 
@@ -352,22 +616,17 @@ main {
         #8b5cf6
     );
 
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+    transition: 0.3s;
 }
 
 .hero-buttons a:hover {
     transform: translateY(-3px);
-
-    box-shadow:
-        0 10px 30px rgba(80, 100, 255, 0.25);
 }
 
 
-/* =====================================================
-   GENERAL SECTIONS
-===================================================== */
+/* =========================================
+   SECTIONS
+========================================= */
 
 section {
     max-width: 1200px;
@@ -388,17 +647,16 @@ section > p {
 }
 
 
-/* =====================================================
+/* =========================================
    FEATURES
-===================================================== */
+========================================= */
 
 .features-container {
     margin-top: 45px;
 
     display: grid;
 
-    grid-template-columns:
-        repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 20px;
 }
@@ -408,26 +666,19 @@ section > p {
 
     border-radius: 20px;
 
-    background:
-        rgba(255, 255, 255, 0.04);
+    background: rgba(255,255,255,0.04);
 
-    border:
-        1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.08);
 
-    transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        background 0.3s ease;
+    transition: 0.3s;
 }
 
 .features-container article:hover {
     transform: translateY(-6px);
 
-    border-color:
-        rgba(100, 120, 255, 0.5);
+    border-color: rgba(100,120,255,0.5);
 
-    background:
-        rgba(100, 120, 255, 0.08);
+    background: rgba(100,120,255,0.08);
 }
 
 .features-container h3 {
@@ -441,9 +692,9 @@ section > p {
 }
 
 
-/* =====================================================
-   CENTERED SECTIONS
-===================================================== */
+/* =========================================
+   CENTER SECTIONS
+========================================= */
 
 #ace-ai,
 #system,
@@ -454,19 +705,14 @@ section > p {
 }
 
 
-/* =====================================================
+/* =========================================
    CONTACT
-===================================================== */
-
-#contact {
-    padding-bottom: 100px;
-}
+========================================= */
 
 .social-media {
     display: flex;
 
     justify-content: center;
-    align-items: stretch;
 
     gap: 20px;
 
@@ -481,7 +727,6 @@ section > p {
     flex-direction: column;
 
     align-items: center;
-    justify-content: center;
 
     gap: 6px;
 
@@ -493,50 +738,40 @@ section > p {
 
     text-decoration: none;
 
-    background:
-        rgba(255, 255, 255, 0.04);
+    background: rgba(255,255,255,0.04);
 
-    border:
-        1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.08);
 
     border-radius: 16px;
 
-    transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        background 0.3s ease;
+    transition: 0.3s;
 }
 
 .social-media a:hover {
     transform: translateY(-5px);
 
-    border-color:
-        rgba(100, 120, 255, 0.5);
+    border-color: rgba(100,120,255,0.5);
 
-    background:
-        rgba(100, 120, 255, 0.08);
+    background: rgba(100,120,255,0.08);
 }
 
-.social-media a span {
+.social-media span {
     color: #aab3cc;
 
     font-size: 14px;
-
-    word-break: break-word;
 }
 
 
-/* =====================================================
+/* =========================================
    FOOTER
-===================================================== */
+========================================= */
 
 footer {
     text-align: center;
 
     padding: 40px 20px;
 
-    border-top:
-        1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255,255,255,0.08);
 
     color: #7f89a5;
 }
@@ -546,353 +781,9 @@ footer p {
 }
 
 
-/* =====================================================
-   MOBILE DRAWER
-===================================================== */
-
-.mobile-drawer {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: min(310px, 84vw);
-    height: 100dvh;
-
-    z-index: 7000;
-
-    display: flex;
-
-    flex-direction: column;
-
-    background:
-        rgba(10, 14, 28, 0.88);
-
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-
-    border-right:
-        1px solid rgba(255, 255, 255, 0.1);
-
-    transform: translateX(-105%);
-
-    transition:
-        transform 0.35s cubic-bezier(
-            0.4,
-            0,
-            0.2,
-            1
-        );
-
-    visibility: hidden;
-}
-
-.mobile-drawer.open {
-    transform: translateX(0);
-
-    visibility: visible;
-}
-
-
-/* =====================================================
-   DRAWER HEADER
-===================================================== */
-
-.drawer-header {
-    height: 82px;
-
-    padding: 15px 18px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    border-bottom:
-        1px solid rgba(255, 255, 255, 0.08);
-}
-
-.drawer-brand {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    font-weight: bold;
-
-    font-size: 19px;
-}
-
-.drawer-brand img {
-    width: 38px;
-    height: 38px;
-
-    object-fit: contain;
-
-    border-radius: 9px;
-}
-
-.drawer-close {
-    width: 40px;
-    height: 40px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background:
-        rgba(255, 255, 255, 0.06);
-
-    color: #ffffff;
-
-    font-size: 30px;
-
-    line-height: 1;
-
-    cursor: pointer;
-}
-
-
-/* =====================================================
-   DRAWER LINKS
-===================================================== */
-
-.drawer-links {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 5px;
-
-    padding: 18px 12px;
-
-    overflow-y: auto;
-}
-
-.drawer-links a {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    padding: 13px 14px;
-
-    color: #dce2f5;
-
-    text-decoration: none;
-
-    border-radius: 12px;
-
-    transition:
-        background 0.25s ease,
-        color 0.25s ease;
-}
-
-.drawer-links a:hover,
-.drawer-links a:active {
-    background:
-        rgba(100, 120, 255, 0.12);
-
-    color: #ffffff;
-}
-
-.drawer-icon {
-    width: 25px;
-
-    text-align: center;
-
-    font-size: 18px;
-}
-
-
-/* =====================================================
-   DRAWER BOTTOM
-===================================================== */
-
-.drawer-bottom {
-    margin-top: auto;
-
-    padding: 14px;
-
-    border-top:
-        1px solid rgba(255, 255, 255, 0.08);
-
-    background:
-        rgba(0, 0, 0, 0.08);
-}
-
-
-/* =====================================================
-   DRAWER ACCOUNT
-===================================================== */
-
-.drawer-account {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 11px;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    border-radius: 14px;
-
-    transition:
-        background 0.25s ease;
-}
-
-.drawer-account:hover {
-    background:
-        rgba(255, 255, 255, 0.07);
-}
-
-.drawer-account img {
-    width: 46px;
-    height: 46px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    border:
-        2px solid rgba(255, 255, 255, 0.15);
-
-    flex-shrink: 0;
-}
-
-.drawer-account-info {
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-}
-
-.drawer-account-info strong {
-    font-size: 15px;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-}
-
-.drawer-account-info span {
-    color: #8f99b5;
-
-    font-size: 12px;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-}
-
-
-/* =====================================================
-   SETTINGS
-===================================================== */
-
-.drawer-settings {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    padding: 13px;
-
-    margin-top: 4px;
-
-    color: #dce2f5;
-
-    text-decoration: none;
-
-    border-radius: 12px;
-
-    transition:
-        background 0.25s ease,
-        color 0.25s ease;
-}
-
-.drawer-settings:hover {
-    background:
-        rgba(255, 255, 255, 0.07);
-
-    color: #ffffff;
-}
-
-.settings-icon {
-    width: 25px;
-
-    text-align: center;
-
-    font-size: 19px;
-}
-
-
-/* =====================================================
-   DRAWER BACKDROP
-===================================================== */
-
-.drawer-backdrop {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 6000;
-
-    background:
-        rgba(0, 0, 0, 0.35);
-
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    transition:
-        opacity 0.3s ease,
-        visibility 0.3s ease;
-}
-
-.drawer-backdrop.open {
-    opacity: 1;
-
-    visibility: visible;
-}
-
-
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 1000px) {
-
-    .nav-links {
-        gap: 15px;
-    }
-
-    nav {
-        gap: 15px;
-    }
-
-}
-
-
-/* =====================================================
+/* =========================================
    MOBILE
-===================================================== */
+========================================= */
 
 @media (max-width: 800px) {
 
@@ -901,121 +792,81 @@ footer p {
     }
 
     nav {
-        height: 70px;
+        height: 78px;
 
-        padding:
-            10px 15px;
+        padding: 0 15px;
+
+        gap: 10px;
 
         justify-content: flex-start;
-
-        gap: 12px;
     }
 
-
-    /* Show hamburger */
-
-    .menu-toggle {
-        display: flex;
+    .menu-button {
+        display: block;
     }
-
-
-    /* Logo stays AFTER hamburger */
 
     .logo {
-        font-size: 18px;
+        font-size: 19px;
 
-        gap: 8px;
+        gap: 9px;
 
-        margin: 0;
-
-        flex-shrink: 1;
+        flex: 1;
     }
 
     .logo img {
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
     }
-
-
-    /* Hide desktop links */
 
     .nav-links {
         display: none;
     }
 
-
-    /* Sign in pushed to right */
-
     .nav-button {
-        margin-left: auto;
-
-        padding:
-            9px 14px;
+        padding: 10px 15px;
 
         font-size: 14px;
-
-        flex-shrink: 0;
     }
-
-
-    /* Main starts below mobile header */
 
     main {
-        padding-top: 70px;
+        padding-top: 78px;
     }
-
 
     #home {
-        min-height:
-            calc(100vh - 70px);
+        min-height: calc(100vh - 78px);
 
-        padding:
-            60px 18px;
+        padding: 60px 18px;
     }
-
 
     .features-container {
         grid-template-columns: 1fr;
     }
 
-
     section {
-        padding:
-            70px 20px;
+        padding: 70px 20px;
     }
-
 
     section h2 {
         font-size: 32px;
     }
 
-
     .hero-content h1 {
-        font-size:
-            clamp(
-                48px,
-                16vw,
-                75px
-            );
+        font-size: clamp(48px, 16vw, 75px);
     }
-
 
     .hero-content h2 {
         font-size: 28px;
     }
 
-
     .hero-content p {
         font-size: 15px;
     }
-
 
     .social-media {
         flex-direction: column;
 
         align-items: center;
     }
-
 
     .social-media a {
         width: 100%;
@@ -1024,70 +875,38 @@ footer p {
 
         min-width: 0;
     }
-
 }
 
 
-/* =====================================================
+/* =========================================
    SMALL MOBILE
-===================================================== */
+========================================= */
 
 @media (max-width: 480px) {
 
     nav {
-        padding:
-            10px 12px;
-
-        gap: 9px;
+        padding: 0 12px;
     }
 
-
-    .menu-toggle {
+    .menu-button {
         width: 46px;
         height: 46px;
     }
 
-
     .logo {
-        font-size: 16px;
-
-        gap: 7px;
+        font-size: 17px;
     }
-
 
     .logo img {
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
     }
 
-
     .nav-button {
-        padding:
-            8px 12px;
+        padding: 9px 12px;
 
         font-size: 13px;
     }
-
-
-    #home {
-        min-height:
-            calc(100vh - 70px);
-
-        padding:
-            55px 18px;
-    }
-
-
-    section {
-        padding:
-            60px 18px;
-    }
-
-
-    section h2 {
-        font-size: 28px;
-    }
-
 
     .hero-buttons {
         flex-direction: column;
@@ -1095,42 +914,14 @@ footer p {
         align-items: center;
     }
 
-
     .hero-buttons a {
         width: 100%;
 
         max-width: 300px;
-
-        text-align: center;
     }
-
 
     .features-container article {
         padding: 24px;
-    }
-
-
-    .social-media a {
-        padding: 18px;
-    }
-
-}
-
-
-/* =====================================================
-   REDUCE MOTION
-===================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-
-    * {
-        scroll-behavior: auto !important;
-
-        transition-duration:
-            0.01ms !important;
-
-        animation-duration:
-            0.01ms !important;
     }
 
 }
