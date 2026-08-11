@@ -1,39 +1,43 @@
-/* =====================================================
-   AiSmartOS WEBSITE JAVASCRIPT
-===================================================== */
+// =========================================
+// AiSmartOS WEBSITE JAVASCRIPT
+// =========================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    console.log("AiSmartOS website loaded successfully.");
 
-    /* =================================================
-       ELEMENTS
-    ================================================= */
 
-    const menuToggle =
-        document.getElementById("menu-toggle");
+    // =====================================
+    // ELEMENTS
+    // =====================================
+
+    const menuButton =
+        document.getElementById("menuButton");
 
     const mobileDrawer =
-        document.getElementById("mobile-drawer");
+        document.getElementById("mobileDrawer");
+
+    const drawerOverlay =
+        document.getElementById("drawerOverlay");
 
     const drawerClose =
-        document.getElementById("drawer-close");
+        document.getElementById("drawerClose");
 
-    const drawerBackdrop =
-        document.getElementById("drawer-backdrop");
+    const drawerLinks =
+        document.querySelectorAll(".drawer-navigation a");
 
 
-
-    /* =================================================
-       OPEN DRAWER
-    ================================================= */
+    // =====================================
+    // OPEN DRAWER
+    // =====================================
 
     function openDrawer() {
 
         if (!mobileDrawer) return;
 
-        mobileDrawer.classList.add("open");
+        mobileDrawer.classList.add("active");
 
-        drawerBackdrop.classList.add("open");
+        drawerOverlay.classList.add("active");
 
         document.body.classList.add("drawer-open");
 
@@ -42,16 +46,11 @@ document.addEventListener("DOMContentLoaded", function () {
             "false"
         );
 
-        if (menuToggle) {
+        if (menuButton) {
 
-            menuToggle.setAttribute(
+            menuButton.setAttribute(
                 "aria-expanded",
                 "true"
-            );
-
-            menuToggle.setAttribute(
-                "aria-label",
-                "Close navigation menu"
             );
 
         }
@@ -59,18 +58,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
-    /* =================================================
-       CLOSE DRAWER
-    ================================================= */
+    // =====================================
+    // CLOSE DRAWER
+    // =====================================
 
     function closeDrawer() {
 
         if (!mobileDrawer) return;
 
-        mobileDrawer.classList.remove("open");
+        mobileDrawer.classList.remove("active");
 
-        drawerBackdrop.classList.remove("open");
+        drawerOverlay.classList.remove("active");
 
         document.body.classList.remove("drawer-open");
 
@@ -79,100 +77,90 @@ document.addEventListener("DOMContentLoaded", function () {
             "true"
         );
 
-        if (menuToggle) {
+        if (menuButton) {
 
-            menuToggle.setAttribute(
+            menuButton.setAttribute(
                 "aria-expanded",
                 "false"
             );
 
-            menuToggle.setAttribute(
-                "aria-label",
-                "Open navigation menu"
-            );
-
         }
 
     }
 
 
+    // =====================================
+    // MENU BUTTON
+    // =====================================
 
-    /* =================================================
-       TOGGLE DRAWER
-    ================================================= */
+    if (menuButton) {
 
-    function toggleDrawer() {
-
-        if (
-            mobileDrawer &&
-            mobileDrawer.classList.contains("open")
-        ) {
-
-            closeDrawer();
-
-        } else {
-
-            openDrawer();
-
-        }
-
-    }
-
-
-
-    /* =================================================
-       MENU BUTTON
-    ================================================= */
-
-    if (menuToggle) {
-
-        menuToggle.addEventListener(
+        menuButton.addEventListener(
             "click",
-            toggleDrawer
+            function (event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                const isOpen =
+                    mobileDrawer.classList.contains("active");
+
+                if (isOpen) {
+
+                    closeDrawer();
+
+                } else {
+
+                    openDrawer();
+
+                }
+
+            }
         );
 
     }
 
 
-
-    /* =================================================
-       CLOSE BUTTON
-    ================================================= */
+    // =====================================
+    // CLOSE BUTTON
+    // =====================================
 
     if (drawerClose) {
 
         drawerClose.addEventListener(
             "click",
-            closeDrawer
+            function () {
+
+                closeDrawer();
+
+            }
         );
 
     }
 
 
+    // =====================================
+    // OVERLAY CLICK
+    // =====================================
 
-    /* =================================================
-       BACKDROP
-    ================================================= */
+    if (drawerOverlay) {
 
-    if (drawerBackdrop) {
-
-        drawerBackdrop.addEventListener(
+        drawerOverlay.addEventListener(
             "click",
-            closeDrawer
+            function () {
+
+                closeDrawer();
+
+            }
         );
 
     }
 
 
-
-    /* =================================================
-       DRAWER LINKS
-    ================================================= */
-
-    const drawerLinks =
-        document.querySelectorAll(
-            ".drawer-links a"
-        );
+    // =====================================
+    // DRAWER LINKS
+    // =====================================
 
     drawerLinks.forEach(function (link) {
 
@@ -188,10 +176,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-
-    /* =================================================
-       ESC KEY
-    ================================================= */
+    // =====================================
+    // ESCAPE KEY
+    // =====================================
 
     document.addEventListener(
         "keydown",
@@ -207,10 +194,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-
-    /* =================================================
-       PREVENT DRAWER ON DESKTOP
-    ================================================= */
+    // =====================================
+    // DESKTOP/MOBILE RESIZE
+    // =====================================
 
     window.addEventListener(
         "resize",
@@ -226,37 +212,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-
-    /* =================================================
-       NAVIGATION LOGGING
-    ================================================= */
-
-    const navLinks =
-        document.querySelectorAll(
-            ".nav-links a"
-        );
-
-    navLinks.forEach(function (link) {
-
-        link.addEventListener(
-            "click",
-            function () {
-
-                console.log(
-                    "Navigation clicked:",
-                    link.textContent.trim()
-                );
-
-            }
-        );
-
-    });
-
-
-
-    /* =================================================
-       HERO BUTTONS
-    ================================================= */
+    // =====================================
+    // HERO BUTTON LOG
+    // =====================================
 
     const heroButtons =
         document.querySelectorAll(
@@ -270,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
             function () {
 
                 console.log(
-                    "Hero button clicked:",
+                    "Hero button:",
                     button.textContent.trim()
                 );
 
@@ -280,10 +238,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-
-    /* =================================================
-       FEATURE CARDS
-    ================================================= */
+    // =====================================
+    // FEATURE CARDS
+    // =====================================
 
     const featureCards =
         document.querySelectorAll(
@@ -314,211 +271,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-
-    /* =================================================
-       ACCOUNT UI
-       
-       This section currently prepares the UI.
-       Actual Supabase profile data will be connected
-       when the account/profile system is finalized.
-    ================================================= */
-
-    function setAccountUI(
-        firstName,
-        avatarURL,
-        loggedIn
-    ) {
-
-        const navButton =
-            document.getElementById(
-                "nav-auth-button"
-            );
-
-        const headerAccount =
-            document.getElementById(
-                "header-account"
-            );
-
-        const headerAvatar =
-            document.getElementById(
-                "header-account-avatar"
-            );
-
-        const headerName =
-            document.getElementById(
-                "header-account-name"
-            );
-
-
-        const drawerAvatar =
-            document.getElementById(
-                "drawer-account-avatar"
-            );
-
-        const drawerName =
-            document.getElementById(
-                "drawer-account-name"
-            );
-
-        const drawerLabel =
-            document.getElementById(
-                "drawer-account-label"
-            );
-
-
-        /* ---------------------------------------------
-           NOT LOGGED IN
-        --------------------------------------------- */
-
-        if (!loggedIn) {
-
-            if (navButton) {
-
-                navButton.style.display =
-                    "inline-flex";
-
-            }
-
-            if (headerAccount) {
-
-                headerAccount.style.display =
-                    "none";
-
-            }
-
-            if (drawerName) {
-
-                drawerName.textContent =
-                    "My Account";
-
-            }
-
-            if (drawerLabel) {
-
-                drawerLabel.textContent =
-                    "Sign in to your account";
-
-            }
-
-            if (drawerAvatar) {
-
-                drawerAvatar.src =
-                    "IMG-20260805-WA0000.jpg";
-
-            }
-
-            return;
-
-        }
-
-
-        /* ---------------------------------------------
-           LOGGED IN
-        --------------------------------------------- */
-
-        if (navButton) {
-
-            navButton.style.display =
-                "none";
-
-        }
-
-        if (headerAccount) {
-
-            headerAccount.style.display =
-                "flex";
-
-        }
-
-        if (headerAvatar && avatarURL) {
-
-            headerAvatar.src =
-                avatarURL;
-
-        }
-
-        if (headerName) {
-
-            headerName.textContent =
-                firstName || "User";
-
-        }
-
-
-        if (drawerAvatar && avatarURL) {
-
-            drawerAvatar.src =
-                avatarURL;
-
-        }
-
-        if (drawerName) {
-
-            drawerName.textContent =
-                firstName || "User";
-
-        }
-
-        if (drawerLabel) {
-
-            drawerLabel.textContent =
-                "My Account";
-
-        }
-
-    }
-
-
-
-    /* =================================================
-       INITIAL ACCOUNT STATE
-       
-       Until Supabase auth is connected on this page,
-       keep Sign In visible.
-    ================================================= */
-
-    setAccountUI(
-        null,
-        null,
-        false
-    );
-
-
-
-    /* =================================================
-       IMAGE FALLBACK
-       
-       If user's custom/profile image fails,
-       use AiSmartOS logo.
-    ================================================= */
-
-    const accountImages =
-        document.querySelectorAll(
-            "#header-account-avatar, #drawer-account-avatar"
-        );
-
-    accountImages.forEach(function (image) {
-
-        image.addEventListener(
-            "error",
-            function () {
-
-                image.src =
-                    "IMG-20260805-WA0000.jpg";
-
-            }
-        );
-
-    });
-
-
-
-    /* =================================================
-       WEBSITE READY
-    ================================================= */
+    // =====================================
+    // TEST DRAWER
+    // =====================================
 
     console.log(
-        "AiSmartOS website loaded successfully!"
+        "Mobile drawer system initialized."
     );
 
 });
