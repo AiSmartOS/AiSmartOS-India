@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -14,152 +12,155 @@
 
     <meta
         name="description"
-        content="Sign in to AiSmartOS using Email, Google, Facebook, GitHub, or Discord."
+        content="Sign in to AiSmartOS"
     >
 
-    <!-- Favicon -->
-    <link
-        rel="icon"
-        type="image/jpeg"
-        href="IMG-20260805-WA0000.jpg"
-    >
-
-    <!-- Main Website CSS -->
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
-    <!-- Auth Page Styling -->
     <style>
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
             min-height: 100vh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 25px;
-
-            font-family: Arial, sans-serif;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
             background:
                 radial-gradient(
-                    circle at 50% 20%,
-                    rgba(70, 90, 255, 0.25),
-                    transparent 45%
-                ),
-                #070b17;
+                    circle at top,
+                    #172554 0%,
+                    #07111f 45%,
+                    #020617 100%
+                );
 
-            color: #ffffff;
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 24px;
         }
 
         .auth-container {
             width: 100%;
             max-width: 430px;
 
-            padding: 40px 32px;
+            background: rgba(15, 23, 42, 0.82);
 
-            text-align: center;
-
-            background: rgba(255, 255, 255, 0.05);
-
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
 
             border-radius: 24px;
 
-            backdrop-filter: blur(18px);
+            padding: 38px 28px 28px;
 
             box-shadow:
-                0 20px 60px rgba(0, 0, 0, 0.35);
+                0 25px 80px rgba(0, 0, 0, 0.45);
+
+            backdrop-filter: blur(18px);
+
+            text-align: center;
         }
 
-        .auth-logo {
-            width: 70px;
-            height: 70px;
+        .logo {
+            width: 82px;
+            height: 82px;
 
-            object-fit: contain;
+            border-radius: 20px;
 
-            border-radius: 16px;
+            object-fit: cover;
 
-            margin-bottom: 18px;
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .auth-container h1 {
+        h1 {
             font-size: 32px;
             margin-bottom: 8px;
         }
 
-        .auth-subtitle {
-            color: #aab3cc;
+        .subtitle {
+            color: #b8c3d1;
+            font-size: 16px;
             margin-bottom: 30px;
         }
 
-        .auth-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .auth-button {
+        .provider-button {
             width: 100%;
 
-            min-height: 50px;
+            min-height: 54px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 12px;
 
-            gap: 12px;
+            border-radius: 13px;
 
-            padding: 13px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
 
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.07);
 
-            border-radius: 12px;
+            color: white;
 
-            background: rgba(255, 255, 255, 0.06);
-
-            color: #ffffff;
-
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
 
             cursor: pointer;
 
-            transition: 0.25s;
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease;
         }
 
-        .auth-button:hover {
+        .provider-button:hover {
             transform: translateY(-2px);
 
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.13);
 
-            border-color: rgba(120, 140, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .auth-icon {
-            font-size: 20px;
+        .provider-button:active {
+            transform: scale(0.98);
+        }
+
+        .google {
+            background: rgba(66, 133, 244, 0.16);
+        }
+
+        .facebook {
+            background: rgba(24, 119, 242, 0.16);
+        }
+
+        .github {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .discord {
+            background: rgba(88, 101, 242, 0.16);
+        }
+
+        .icon {
+            margin-right: 10px;
+            font-size: 19px;
         }
 
         .divider {
             display: flex;
             align-items: center;
 
-            gap: 12px;
+            gap: 14px;
 
             margin: 25px 0;
 
-            color: #7f89a5;
+            color: #94a3b8;
 
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .divider::before,
@@ -170,66 +171,88 @@
 
             height: 1px;
 
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .email-section {
-            display: flex;
-            flex-direction: column;
-
-            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .email-input {
             width: 100%;
 
-            padding: 14px;
+            height: 54px;
 
-            border-radius: 12px;
+            padding: 0 16px;
 
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 13px;
 
-            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
 
             background: rgba(0, 0, 0, 0.2);
 
-            color: #ffffff;
+            color: white;
 
-            font-size: 15px;
+            font-size: 16px;
+
+            outline: none;
+
+            margin-bottom: 12px;
         }
 
         .email-input::placeholder {
-            color: #7f89a5;
+            color: #94a3b8;
+        }
+
+        .email-input:focus {
+            border-color: #38bdf8;
+
+            box-shadow:
+                0 0 0 3px rgba(56, 189, 248, 0.12);
         }
 
         .email-button {
             width: 100%;
 
-            padding: 14px;
+            height: 54px;
 
             border: none;
 
-            border-radius: 12px;
-
-            color: #ffffff;
-
-            font-size: 15px;
-            font-weight: bold;
-
-            cursor: pointer;
+            border-radius: 13px;
 
             background:
                 linear-gradient(
                     135deg,
-                    #4267ff,
-                    #8b5cf6
+                    #38bdf8,
+                    #2563eb
                 );
 
-            transition: 0.25s;
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
         }
 
         .email-button:hover {
             transform: translateY(-2px);
+        }
+
+        .email-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            min-height: 24px;
+
+            margin-top: 18px;
+
+            font-size: 14px;
+
+            color: #cbd5e1;
         }
 
         .back-link {
@@ -237,147 +260,145 @@
 
             margin-top: 25px;
 
-            color: #8fa5ff;
+            color: #93c5fd;
 
             text-decoration: none;
 
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .back-link:hover {
             text-decoration: underline;
         }
 
-        .auth-footer {
-            margin-top: 25px;
+        .footer {
+            margin-top: 22px;
 
-            color: #66718d;
+            color: #64748b;
 
-            font-size: 12px;
+            font-size: 13px;
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 480px) {
 
             body {
                 padding: 15px;
             }
 
             .auth-container {
-                padding: 32px 22px;
+                padding: 32px 20px 24px;
             }
 
-            .auth-container h1 {
+            h1 {
                 font-size: 28px;
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-    <main class="auth-container">
+    <div class="auth-container">
 
         <!-- AiSmartOS Logo -->
-
         <img
             src="IMG-20260805-WA0000.jpg"
             alt="AiSmartOS Logo"
-            class="auth-logo"
+            class="logo"
         >
 
+        <h1>Welcome to AiSmartOS</h1>
 
-        <!-- Heading -->
-
-        <h1>
-            Welcome to AiSmartOS
-        </h1>
-
-        <p class="auth-subtitle">
+        <p class="subtitle">
             Sign in to continue
         </p>
 
 
-        <!-- Social Login Buttons -->
+        <!-- =========================
+             SOCIAL LOGIN
+        ========================== -->
 
-        <div class="auth-buttons">
-
-            <button
-                type="button"
-                class="auth-button"
-                id="google-login"
-            >
-                <span class="auth-icon">🔵</span>
-                Continue with Google
-            </button>
-
-
-            <button
-                type="button"
-                class="auth-button"
-                id="facebook-login"
-            >
-                <span class="auth-icon">🔵</span>
-                Continue with Facebook
-            </button>
+        <button
+            type="button"
+            id="google-login"
+            class="provider-button google"
+        >
+            <span class="icon">🌐</span>
+            Continue with Google
+        </button>
 
 
-            <button
-                type="button"
-                class="auth-button"
-                id="github-login"
-            >
-                <span class="auth-icon">⚫</span>
-                Continue with GitHub
-            </button>
+        <button
+            type="button"
+            id="facebook-login"
+            class="provider-button facebook"
+        >
+            <span class="icon">ⓕ</span>
+            Continue with Facebook
+        </button>
 
 
-            <button
-                type="button"
-                class="auth-button"
-                id="discord-login"
-            >
-                <span class="auth-icon">💬</span>
-                Continue with Discord
-            </button>
-
-        </div>
+        <button
+            type="button"
+            id="github-login"
+            class="provider-button github"
+        >
+            <span class="icon">◉</span>
+            Continue with GitHub
+        </button>
 
 
-        <!-- Divider -->
+        <button
+            type="button"
+            id="discord-login"
+            class="provider-button discord"
+        >
+            <span class="icon">💬</span>
+            Continue with Discord
+        </button>
+
+
+        <!-- =========================
+             DIVIDER
+        ========================== -->
 
         <div class="divider">
             OR
         </div>
 
 
-        <!-- Email Login -->
+        <!-- =========================
+             EMAIL LOGIN
+        ========================== -->
 
-        <div class="email-section">
+        <input
+            type="email"
+            id="email"
+            class="email-input"
+            placeholder="Enter your email"
+            autocomplete="email"
+        >
 
-            <input
-                type="email"
-                id="email"
-                class="email-input"
-                placeholder="Enter your email"
-                autocomplete="email"
-            >
-
-            <button
-                type="button"
-                class="email-button"
-                id="email-login"
-            >
-                Continue with Email
-            </button>
-
-        </div>
+        <button
+            type="button"
+            id="email-login"
+            class="email-button"
+        >
+            Continue with Email
+        </button>
 
 
-        <!-- Back to Website -->
+        <!-- Status / Error message -->
+        <div
+            id="auth-message"
+            class="message"
+            aria-live="polite"
+        ></div>
+
+
+        <!-- =========================
+             BACK TO WEBSITE
+        ========================== -->
 
         <a
             href="index.html"
@@ -387,15 +408,28 @@
         </a>
 
 
-        <p class="auth-footer">
+        <p class="footer">
             © 2026 AiSmartOS
         </p>
 
+    </div>
 
-    <!-- Authentication JavaScript -->
-   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="auth.js"></script> 
+
+    <!-- =================================================
+         SUPABASE JAVASCRIPT LIBRARY
+         MUST LOAD BEFORE auth.js
+    ================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- =================================================
+         AiSmartOS AUTHENTICATION SCRIPT
+    ================================================== -->
+
+    <script src="auth.js"></script>
 
 </body>
-
 </html>
