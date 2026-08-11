@@ -27,25 +27,20 @@
         href="https://aismartos.github.io/AiSmartOS-India/"
     >
 
-    <!-- =========================
-         FAVICON / WEBSITE LOGO
-    ========================== -->
-
+    <!-- Favicon -->
     <link
         rel="icon"
         type="image/jpeg"
         href="IMG-20260805-WA0000.jpg"
     >
 
+    <!-- Apple / Mobile Icon -->
     <link
         rel="apple-touch-icon"
         href="IMG-20260805-WA0000.jpg"
     >
 
-    <!-- =========================
-         SOCIAL / GOOGLE PREVIEW
-    ========================== -->
-
+    <!-- Open Graph -->
     <meta property="og:site_name" content="AiSmartOS">
 
     <meta
@@ -63,20 +58,14 @@
         content="https://aismartos.github.io/AiSmartOS-India/"
     >
 
-    <meta
-        property="og:type"
-        content="website"
-    >
+    <meta property="og:type" content="website">
 
     <meta
         property="og:image"
         content="https://aismartos.github.io/AiSmartOS-India/IMG-20260805-WA0000.jpg"
     >
 
-    <!-- =========================
-         WEBSITE IDENTITY
-    ========================== -->
-
+    <!-- Website Identity -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -97,6 +86,104 @@
 
 
 <body>
+
+    <!-- =========================
+         MOBILE DRAWER OVERLAY
+    ========================== -->
+
+    <div
+        class="drawer-overlay"
+        id="drawer-overlay"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =========================
+         MOBILE NAVIGATION DRAWER
+    ========================== -->
+
+    <aside
+        class="mobile-drawer"
+        id="mobile-drawer"
+        aria-hidden="true"
+    >
+
+        <div class="drawer-header">
+
+            <a
+                href="#home"
+                class="drawer-logo"
+            >
+
+                <img
+                    src="IMG-20260805-WA0000.jpg"
+                    alt="AiSmartOS Logo"
+                >
+
+                <span>AiSmartOS</span>
+
+            </a>
+
+            <button
+                type="button"
+                class="drawer-close"
+                id="drawer-close"
+                aria-label="Close navigation menu"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <nav
+            class="drawer-links"
+            aria-label="Mobile navigation"
+        >
+
+            <a href="#home">
+                <span>🏠</span>
+                Home
+            </a>
+
+            <a href="#features">
+                <span>✨</span>
+                Features
+            </a>
+
+            <a href="#ace-ai">
+                <span>🤖</span>
+                ACE AI
+            </a>
+
+            <a href="#system">
+                <span>💻</span>
+                System
+            </a>
+
+            <a href="#about">
+                <span>ℹ️</span>
+                About Us
+            </a>
+
+            <a href="#contact">
+                <span>📩</span>
+                Contact
+            </a>
+
+        </nav>
+
+
+        <a
+            href="auth.html"
+            class="drawer-signin"
+        >
+            <span>👤</span>
+            Sign In
+        </a>
+
+    </aside>
+
 
     <!-- =========================
          NAVIGATION BAR
@@ -123,7 +210,7 @@
             </a>
 
 
-            <!-- Navigation Links -->
+            <!-- Desktop Navigation Links -->
 
             <div class="nav-links">
 
@@ -135,14 +222,14 @@
 
                 <a href="#system">System</a>
 
-                <a href="#about">About us</a>
+                <a href="#about">About Us</a>
 
                 <a href="#contact">Contact</a>
 
             </div>
 
 
-            <!-- Main Button -->
+            <!-- Desktop Sign In -->
 
             <a
                 href="auth.html"
@@ -150,6 +237,20 @@
             >
                 Sign In
             </a>
+
+
+            <!-- Mobile Menu Button -->
+
+            <button
+                type="button"
+                class="menu-button"
+                id="menu-button"
+                aria-label="Open navigation menu"
+                aria-controls="mobile-drawer"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
 
         </nav>
 
@@ -195,7 +296,7 @@
                         Explore AiSmartOS
                     </a>
 
-                    <a href="#system">
+                    <a href="#about">
                         About Us
                     </a>
 
@@ -225,7 +326,7 @@
                     </h3>
 
                     <p>
-                        A smart assistant Ace is designed to help users
+                        A smart assistant designed to help users
                         interact naturally with their system.
                     </p>
 
@@ -289,7 +390,7 @@
             </h2>
 
             <p>
-                Meet Ace the intelligence behind AiSmartOS.
+                Meet ACE, the intelligence behind AiSmartOS.
             </p>
 
         </section>
@@ -365,8 +466,6 @@
 
             <div class="social-media">
 
-                <!-- Instagram -->
-
                 <a
                     href="https://www.instagram.com/aismartos.india/"
                     target="_blank"
@@ -374,19 +473,19 @@
                     aria-label="AiSmartOS Instagram"
                 >
                     📸 Instagram
+
                     <span>
                         @aismartos.india
                     </span>
                 </a>
 
 
-                <!-- Email -->
-
                 <a
                     href="mailto:aismartosindia@gmail.com"
                     aria-label="Email AiSmartOS"
                 >
                     ✉️ Email
+
                     <span>
                         aismartosindia@gmail.com
                     </span>
@@ -417,7 +516,6 @@
 
 
     <!-- JavaScript -->
-
     <script src="script.js"></script>
 
 </body>
