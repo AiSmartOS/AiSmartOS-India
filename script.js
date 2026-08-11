@@ -4,11 +4,13 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("AiSmartOS website loaded successfully!");
+    console.log(
+        "AiSmartOS website loaded successfully!"
+    );
 
 
     // =========================
-    // MOBILE NAVIGATION DRAWER
+    // MOBILE DRAWER ELEMENTS
     // =========================
 
     const menuButton =
@@ -24,120 +26,168 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("drawer-overlay");
 
     const drawerLinks =
-        document.querySelectorAll(".drawer-links a");
+        document.querySelectorAll(
+            ".drawer-links a"
+        );
 
 
-    // Open drawer
+    // =========================
+    // CHECK ELEMENTS
+    // =========================
+
+    if (
+        !menuButton ||
+        !mobileDrawer ||
+        !drawerClose ||
+        !drawerOverlay
+    ) {
+
+        console.error(
+            "AiSmartOS: Mobile drawer elements not found."
+        );
+
+        return;
+    }
+
+
+    // =========================
+    // OPEN DRAWER
+    // =========================
+
     function openDrawer() {
-
-        if (!mobileDrawer) return;
 
         mobileDrawer.classList.add("open");
 
-        if (drawerOverlay) {
-            drawerOverlay.classList.add("open");
-        }
+        drawerOverlay.classList.add("open");
 
-        document.body.classList.add("drawer-open");
+        document.body.classList.add(
+            "drawer-open"
+        );
 
-        if (menuButton) {
-            menuButton.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-        }
+        menuButton.setAttribute(
+            "aria-expanded",
+            "true"
+        );
 
         mobileDrawer.setAttribute(
             "aria-hidden",
             "false"
         );
 
-        if (drawerOverlay) {
-            drawerOverlay.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-        }
+        drawerOverlay.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        console.log(
+            "Mobile navigation drawer opened."
+        );
     }
 
 
-    // Close drawer
-    function closeDrawer() {
+    // =========================
+    // CLOSE DRAWER
+    // =========================
 
-        if (!mobileDrawer) return;
+    function closeDrawer() {
 
         mobileDrawer.classList.remove("open");
 
-        if (drawerOverlay) {
-            drawerOverlay.classList.remove("open");
-        }
+        drawerOverlay.classList.remove("open");
 
-        document.body.classList.remove("drawer-open");
+        document.body.classList.remove(
+            "drawer-open"
+        );
 
-        if (menuButton) {
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-        }
+        menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
 
         mobileDrawer.setAttribute(
             "aria-hidden",
             "true"
         );
 
-        if (drawerOverlay) {
-            drawerOverlay.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-        }
-    }
-
-
-    // Hamburger button
-    if (menuButton) {
-
-        menuButton.addEventListener(
-            "click",
-            openDrawer
-        );
-    }
-
-
-    // Close button
-    if (drawerClose) {
-
-        drawerClose.addEventListener(
-            "click",
-            closeDrawer
-        );
-    }
-
-
-    // Close when background is clicked
-    if (drawerOverlay) {
-
-        drawerOverlay.addEventListener(
-            "click",
-            closeDrawer
-        );
-    }
-
-
-    // Close after selecting a drawer link
-    drawerLinks.forEach(function (link) {
-
-        link.addEventListener(
-            "click",
-            closeDrawer
+        drawerOverlay.setAttribute(
+            "aria-hidden",
+            "true"
         );
 
-    });
+        console.log(
+            "Mobile navigation drawer closed."
+        );
+    }
 
 
     // =========================
-    // CLOSE DRAWER WITH ESCAPE
+    // HAMBURGER CLICK
+    // =========================
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            if (
+                mobileDrawer.classList.contains(
+                    "open"
+                )
+            ) {
+
+                closeDrawer();
+
+            } else {
+
+                openDrawer();
+
+            }
+
+        }
+    );
+
+
+    // =========================
+    // CLOSE BUTTON
+    // =========================
+
+    drawerClose.addEventListener(
+        "click",
+        closeDrawer
+    );
+
+
+    // =========================
+    // OVERLAY CLICK
+    // =========================
+
+    drawerOverlay.addEventListener(
+        "click",
+        closeDrawer
+    );
+
+
+    // =========================
+    // DRAWER NAVIGATION
+    // =========================
+
+    drawerLinks.forEach(
+        function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    closeDrawer();
+
+                }
+            );
+
+        }
+    );
+
+
+    // =========================
+    // ESCAPE KEY
     // =========================
 
     document.addEventListener(
@@ -146,10 +196,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (
                 event.key === "Escape" &&
-                mobileDrawer &&
-                mobileDrawer.classList.contains("open")
+                mobileDrawer.classList.contains(
+                    "open"
+                )
             ) {
+
                 closeDrawer();
+
             }
 
         }
@@ -157,8 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =========================
-    // CLOSE DRAWER WHEN
-    // RESIZING TO DESKTOP
+    // RESIZE PROTECTION
     // =========================
 
     window.addEventListener(
@@ -167,10 +219,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (
                 window.innerWidth > 800 &&
-                mobileDrawer &&
-                mobileDrawer.classList.contains("open")
+                mobileDrawer.classList.contains(
+                    "open"
+                )
             ) {
+
                 closeDrawer();
+
             }
 
         }
@@ -178,27 +233,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =========================
-    // DESKTOP NAVIGATION LINKS
+    // DESKTOP NAVIGATION
     // =========================
 
     const navLinks =
-        document.querySelectorAll(".nav-links a");
-
-    navLinks.forEach(function (link) {
-
-        link.addEventListener(
-            "click",
-            function () {
-
-                console.log(
-                    "Navigation clicked:",
-                    link.textContent.trim()
-                );
-
-            }
+        document.querySelectorAll(
+            ".nav-links a"
         );
 
-    });
+    navLinks.forEach(
+        function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    console.log(
+                        "Navigation clicked:",
+                        link.textContent.trim()
+                    );
+
+                }
+            );
+
+        }
+    );
 
 
     // =========================
@@ -210,21 +269,23 @@ document.addEventListener("DOMContentLoaded", function () {
             ".hero-buttons a"
         );
 
-    heroButtons.forEach(function (button) {
+    heroButtons.forEach(
+        function (button) {
 
-        button.addEventListener(
-            "click",
-            function () {
+            button.addEventListener(
+                "click",
+                function () {
 
-                console.log(
-                    "Hero button clicked:",
-                    button.textContent.trim()
-                );
+                    console.log(
+                        "Hero button clicked:",
+                        button.textContent.trim()
+                    );
 
-            }
-        );
+                }
+            );
 
-    });
+        }
+    );
 
 
     // =========================
@@ -236,25 +297,29 @@ document.addEventListener("DOMContentLoaded", function () {
             ".features-container article"
         );
 
-    featureCards.forEach(function (card) {
+    featureCards.forEach(
+        function (card) {
 
-        card.addEventListener(
-            "click",
-            function () {
+            card.addEventListener(
+                "click",
+                function () {
 
-                const titleElement =
-                    card.querySelector("h3");
+                    const titleElement =
+                        card.querySelector("h3");
 
-                if (!titleElement) return;
+                    if (!titleElement) {
+                        return;
+                    }
 
-                console.log(
-                    "Feature selected:",
-                    titleElement.textContent.trim()
-                );
+                    console.log(
+                        "Feature selected:",
+                        titleElement.textContent.trim()
+                    );
 
-            }
-        );
+                }
+            );
 
-    });
+        }
+    );
 
 });
