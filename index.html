@@ -17,15 +17,8 @@
         content="AiSmartOS is an emerging next-generation AI-powered operating system concept designed in India."
     >
 
-    <meta
-        name="robots"
-        content="index, follow"
-    >
-
-    <meta
-        name="author"
-        content="AiSmartOS"
-    >
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="AiSmartOS">
 
     <link
         rel="canonical"
@@ -43,10 +36,9 @@
         href="IMG-20260805-WA0000.jpg"
     >
 
-    <meta
-        property="og:site_name"
-        content="AiSmartOS"
-    >
+    <!-- Open Graph -->
+
+    <meta property="og:site_name" content="AiSmartOS">
 
     <meta
         property="og:title"
@@ -63,15 +55,15 @@
         content="https://aismartos.github.io/AiSmartOS-India/"
     >
 
-    <meta
-        property="og:type"
-        content="website"
-    >
+    <meta property="og:type" content="website">
 
     <meta
         property="og:image"
         content="https://aismartos.github.io/AiSmartOS-India/IMG-20260805-WA0000.jpg"
     >
+
+
+    <!-- Schema -->
 
     <script type="application/ld+json">
     {
@@ -83,50 +75,70 @@
     }
     </script>
 
+
+    <!-- CSS -->
+
     <link
         rel="stylesheet"
         href="style.css"
     >
+
+
+    <!-- Supabase -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+        defer
+    ></script>
 
 </head>
 
 
 <body>
 
+
     <!-- =====================================
-         MOBILE DRAWER OVERLAY
+         DRAWER OVERLAY
     ====================================== -->
 
     <div
-        class="drawer-overlay"
         id="drawerOverlay"
+        class="drawer-overlay"
     ></div>
 
 
     <!-- =====================================
-         MOBILE NAVIGATION DRAWER
+         MOBILE DRAWER
     ====================================== -->
 
     <aside
-        class="mobile-drawer"
         id="mobileDrawer"
+        class="mobile-drawer"
         aria-hidden="true"
     >
+
+
+        <!-- Drawer Header -->
 
         <div class="drawer-header">
 
             <div class="drawer-title">
+
                 <img
                     src="IMG-20260805-WA0000.jpg"
                     alt="AiSmartOS"
                 >
 
-                <span>AiSmartOS</span>
+                <span>
+                    AiSmartOS
+                </span>
+
             </div>
 
+
             <button
-                class="drawer-close"
                 id="drawerClose"
+                class="drawer-close"
                 type="button"
                 aria-label="Close menu"
             >
@@ -136,73 +148,86 @@
         </div>
 
 
-        <!-- Drawer Navigation -->
+        <!-- =================================
+             DRAWER NAVIGATION
+        ================================== -->
 
         <nav class="drawer-navigation">
 
             <a href="#home">
                 <span>⌂</span>
-                Home
+                <span>Home</span>
             </a>
 
             <a href="#features">
                 <span>✦</span>
-                Features
+                <span>Features</span>
             </a>
 
             <a href="#ace-ai">
                 <span>✧</span>
-                ACE AI
+                <span>ACE AI</span>
             </a>
 
             <a href="#system">
                 <span>◈</span>
-                System
+                <span>System</span>
             </a>
 
             <a href="#about">
                 <span>ⓘ</span>
-                About us
+                <span>About Us</span>
             </a>
 
             <a href="#contact">
                 <span>✉</span>
-                Contact
+                <span>Contact</span>
             </a>
 
         </nav>
 
 
-        <!-- Drawer Bottom -->
+        <!-- =================================
+             DRAWER BOTTOM AREA
+        ================================== -->
 
         <div class="drawer-bottom">
 
+
+            <!-- My Account
+                 Hidden until login -->
+
             <a
+                id="drawerAccount"
                 href="auth.html"
                 class="drawer-account"
+                style="display: none;"
             >
 
                 <div
+                    id="drawerAvatar"
                     class="account-avatar"
-                    id="drawerAccountAvatar"
                 >
                     👤
                 </div>
 
+
                 <div class="account-info">
 
-                    <strong id="drawerAccountName">
+                    <strong id="drawerName">
                         My Account
                     </strong>
 
-                    <small>
-                        Sign in to AiSmartOS
+                    <small id="drawerAccountStatus">
+                        Account
                     </small>
 
                 </div>
 
             </a>
 
+
+            <!-- Settings -->
 
             <a
                 href="settings.html"
@@ -232,11 +257,12 @@
 
         <nav>
 
-            <!-- Mobile Menu Button -->
+
+            <!-- Mobile Menu -->
 
             <button
-                class="menu-button"
                 id="menuButton"
+                class="menu-button"
                 type="button"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
@@ -304,9 +330,11 @@
             <a
                 href="auth.html"
                 class="nav-button"
+                id="signInButton"
             >
                 Sign In
             </a>
+
 
         </nav>
 
@@ -314,7 +342,7 @@
 
 
     <!-- =====================================
-         MAIN
+         MAIN CONTENT
     ====================================== -->
 
     <main>
@@ -516,7 +544,6 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-
                     📸 Instagram
 
                     <span>
@@ -529,7 +556,6 @@
                 <a
                     href="mailto:aismartosindia@gmail.com"
                 >
-
                     ✉️ Email
 
                     <span>
@@ -562,7 +588,15 @@
     </footer>
 
 
-    <script src="script.js"></script>
+    <!-- =====================================
+         WEBSITE JAVASCRIPT
+    ====================================== -->
+
+    <script
+        src="script.js"
+        defer
+    ></script>
+
 
 </body>
 
