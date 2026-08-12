@@ -2,281 +2,586 @@
 // AiSmartOS WEBSITE JAVASCRIPT
 // =========================================
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("AiSmartOS website loaded successfully.");
+// =========================================
+// SUPABASE CONFIG
+// =========================================
 
+const SUPABASE_URL =
+    "https://mxkzwbgtvaccfwlaovhr.supabase.co";
 
-    // =====================================
-    // ELEMENTS
-    // =====================================
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_ttq-ivZPAf1btYyjvZYT7g_fN1TEyUt";
 
-    const menuButton =
-        document.getElementById("menuButton");
-
-    const mobileDrawer =
-        document.getElementById("mobileDrawer");
-
-    const drawerOverlay =
-        document.getElementById("drawerOverlay");
-
-    const drawerClose =
-        document.getElementById("drawerClose");
-
-    const drawerLinks =
-        document.querySelectorAll(".drawer-navigation a");
+let supabaseClient = null;
 
 
-    // =====================================
-    // OPEN DRAWER
-    // =====================================
+// =========================================
+// INITIALIZE
+// =========================================
 
-    function openDrawer() {
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
 
-        if (!mobileDrawer) return;
-
-        mobileDrawer.classList.add("active");
-
-        drawerOverlay.classList.add("active");
-
-        document.body.classList.add("drawer-open");
-
-        mobileDrawer.setAttribute(
-            "aria-hidden",
-            "false"
+        console.log(
+            "AiSmartOS website loaded."
         );
 
-        if (menuButton) {
 
-            menuButton.setAttribute(
-                "aria-expanded",
-                "true"
+        // =====================================
+        // DRAWER ELEMENTS
+        // =====================================
+
+        const menuButton =
+            document.getElementById(
+                "menuButton"
             );
 
-        }
+        const mobileDrawer =
+            document.getElementById(
+                "mobileDrawer"
+            );
 
-    }
+        const drawerOverlay =
+            document.getElementById(
+                "drawerOverlay"
+            );
+
+        const drawerClose =
+            document.getElementById(
+                "drawerClose"
+            );
 
 
-    // =====================================
-    // CLOSE DRAWER
-    // =====================================
+        // =====================================
+        // OPEN DRAWER
+        // =====================================
 
-    function closeDrawer() {
+        function openDrawer() {
 
-        if (!mobileDrawer) return;
+            if (!mobileDrawer) {
+                return;
+            }
 
-        mobileDrawer.classList.remove("active");
+            mobileDrawer.classList.add(
+                "active"
+            );
 
-        drawerOverlay.classList.remove("active");
+            drawerOverlay.classList.add(
+                "active"
+            );
 
-        document.body.classList.remove("drawer-open");
+            document.body.classList.add(
+                "drawer-open"
+            );
 
-        mobileDrawer.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (menuButton) {
-
-            menuButton.setAttribute(
-                "aria-expanded",
+            mobileDrawer.setAttribute(
+                "aria-hidden",
                 "false"
             );
 
+            if (menuButton) {
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "true"
+                );
+
+            }
+
         }
 
-    }
+
+        // =====================================
+        // CLOSE DRAWER
+        // =====================================
+
+        function closeDrawer() {
+
+            if (!mobileDrawer) {
+                return;
+            }
+
+            mobileDrawer.classList.remove(
+                "active"
+            );
+
+            drawerOverlay.classList.remove(
+                "active"
+            );
+
+            document.body.classList.remove(
+                "drawer-open"
+            );
+
+            mobileDrawer.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            if (menuButton) {
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        }
 
 
-    // =====================================
-    // MENU BUTTON
-    // =====================================
+        // =====================================
+        // MENU BUTTON
+        // =====================================
 
-    if (menuButton) {
+        if (menuButton) {
 
-        menuButton.addEventListener(
-            "click",
-            function (event) {
+            menuButton.addEventListener(
+                "click",
+                function (event) {
 
-                event.preventDefault();
+                    event.preventDefault();
 
-                event.stopPropagation();
+                    event.stopPropagation();
 
-                const isOpen =
-                    mobileDrawer.classList.contains("active");
 
-                if (isOpen) {
+                    if (
+                        mobileDrawer.classList.contains(
+                            "active"
+                        )
+                    ) {
+
+                        closeDrawer();
+
+                    } else {
+
+                        openDrawer();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        // =====================================
+        // CLOSE BUTTON
+        // =====================================
+
+        if (drawerClose) {
+
+            drawerClose.addEventListener(
+                "click",
+                function () {
 
                     closeDrawer();
 
-                } else {
+                }
+            );
 
-                    openDrawer();
+        }
+
+
+        // =====================================
+        // OVERLAY
+        // =====================================
+
+        if (drawerOverlay) {
+
+            drawerOverlay.addEventListener(
+                "click",
+                function () {
+
+                    closeDrawer();
 
                 }
-
-            }
-        );
-
-    }
-
-
-    // =====================================
-    // CLOSE BUTTON
-    // =====================================
-
-    if (drawerClose) {
-
-        drawerClose.addEventListener(
-            "click",
-            function () {
-
-                closeDrawer();
-
-            }
-        );
-
-    }
-
-
-    // =====================================
-    // OVERLAY CLICK
-    // =====================================
-
-    if (drawerOverlay) {
-
-        drawerOverlay.addEventListener(
-            "click",
-            function () {
-
-                closeDrawer();
-
-            }
-        );
-
-    }
-
-
-    // =====================================
-    // DRAWER LINKS
-    // =====================================
-
-    drawerLinks.forEach(function (link) {
-
-        link.addEventListener(
-            "click",
-            function () {
-
-                closeDrawer();
-
-            }
-        );
-
-    });
-
-
-    // =====================================
-    // ESCAPE KEY
-    // =====================================
-
-    document.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (event.key === "Escape") {
-
-                closeDrawer();
-
-            }
+            );
 
         }
-    );
 
 
-    // =====================================
-    // DESKTOP/MOBILE RESIZE
-    // =====================================
+        // =====================================
+        // DRAWER NAV LINKS
+        // =====================================
 
-    window.addEventListener(
-        "resize",
-        function () {
+        const drawerLinks =
+            document.querySelectorAll(
+                ".drawer-navigation a"
+            );
 
-            if (window.innerWidth > 800) {
+        drawerLinks.forEach(
+            function (link) {
 
-                closeDrawer();
+                link.addEventListener(
+                    "click",
+                    function () {
 
-            }
+                        closeDrawer();
 
-        }
-    );
-
-
-    // =====================================
-    // HERO BUTTON LOG
-    // =====================================
-
-    const heroButtons =
-        document.querySelectorAll(
-            ".hero-buttons a"
-        );
-
-    heroButtons.forEach(function (button) {
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                console.log(
-                    "Hero button:",
-                    button.textContent.trim()
+                    }
                 );
 
             }
         );
 
-    });
 
+        // =====================================
+        // ESC KEY
+        // =====================================
 
-    // =====================================
-    // FEATURE CARDS
-    // =====================================
+        document.addEventListener(
+            "keydown",
+            function (event) {
 
-    const featureCards =
-        document.querySelectorAll(
-            ".features-container article"
-        );
+                if (
+                    event.key === "Escape"
+                ) {
 
-    featureCards.forEach(function (card) {
-
-        card.addEventListener(
-            "click",
-            function () {
-
-                const titleElement =
-                    card.querySelector("h3");
-
-                if (titleElement) {
-
-                    console.log(
-                        "Feature selected:",
-                        titleElement.textContent.trim()
-                    );
+                    closeDrawer();
 
                 }
 
             }
         );
 
-    });
+
+        // =====================================
+        // DESKTOP RESIZE
+        // =====================================
+
+        window.addEventListener(
+            "resize",
+            function () {
+
+                if (
+                    window.innerWidth > 800
+                ) {
+
+                    closeDrawer();
+
+                }
+
+            }
+        );
 
 
-    // =====================================
-    // TEST DRAWER
-    // =====================================
+        // =====================================
+        // SUPABASE INITIALIZATION
+        // =====================================
 
-    console.log(
-        "Mobile drawer system initialized."
-    );
+        if (
+            typeof window.supabase ===
+            "undefined"
+        ) {
 
-});
+            console.error(
+                "Supabase library was not loaded."
+            );
+
+            return;
+
+        }
+
+
+        supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
+        console.log(
+            "Supabase initialized."
+        );
+
+
+        // =====================================
+        // ACCOUNT UI
+        // =====================================
+
+        await updateAccountUI();
+
+
+        // =====================================
+        // AUTH STATE LISTENER
+        // =====================================
+
+        supabaseClient.auth.onAuthStateChange(
+            async function (
+                event,
+                session
+            ) {
+
+                console.log(
+                    "Auth event:",
+                    event
+                );
+
+                await updateAccountUI();
+
+            }
+        );
+
+
+        // =====================================
+        // ACCOUNT UI FUNCTION
+        // =====================================
+
+        async function updateAccountUI() {
+
+            if (!supabaseClient) {
+                return;
+            }
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            if (error) {
+
+                console.error(
+                    "Session error:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            const session =
+                data.session;
+
+
+            const account =
+                document.getElementById(
+                    "drawerAccount"
+                );
+
+            const avatar =
+                document.getElementById(
+                    "drawerAvatar"
+                );
+
+            const name =
+                document.getElementById(
+                    "drawerName"
+                );
+
+            const status =
+                document.getElementById(
+                    "drawerAccountStatus"
+                );
+
+
+            if (
+                !account ||
+                !avatar ||
+                !name
+            ) {
+
+                return;
+
+            }
+
+
+            // =================================
+            // USER IS NOT LOGGED IN
+            // =================================
+
+            if (
+                !session ||
+                !session.user
+            ) {
+
+                account.style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            // =================================
+            // USER IS LOGGED IN
+            // =================================
+
+            account.style.display =
+                "flex";
+
+
+            const user =
+                session.user;
+
+
+            const metadata =
+                user.user_metadata || {};
+
+
+            // =================================
+            // FIRST NAME
+            // =================================
+
+            let firstName = "";
+
+
+            if (
+                metadata.first_name
+            ) {
+
+                firstName =
+                    metadata.first_name;
+
+            }
+
+            else if (
+                metadata.full_name
+            ) {
+
+                firstName =
+                    metadata.full_name
+                        .trim()
+                        .split(" ")[0];
+
+            }
+
+            else if (
+                metadata.name
+            ) {
+
+                firstName =
+                    metadata.name
+                        .trim()
+                        .split(" ")[0];
+
+            }
+
+            else if (
+                user.email
+            ) {
+
+                firstName =
+                    user.email
+                        .split("@")[0];
+
+            }
+
+            else {
+
+                firstName =
+                    "User";
+
+            }
+
+
+            // =================================
+            // PROFILE PHOTO
+            // =================================
+
+            const avatarURL =
+                metadata.avatar_url ||
+                metadata.picture ||
+                null;
+
+
+            // =================================
+            // SET NAME
+            // =================================
+
+            name.textContent =
+                firstName;
+
+
+            if (status) {
+
+                status.textContent =
+                    "My Account";
+
+            }
+
+
+            // =================================
+            // SET AVATAR
+            // =================================
+
+            if (avatarURL) {
+
+                avatar.innerHTML = "";
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+                image.src =
+                    avatarURL;
+
+                image.alt =
+                    firstName;
+
+                image.referrerPolicy =
+                    "no-referrer";
+
+                avatar.appendChild(
+                    image
+                );
+
+            }
+
+            else {
+
+                avatar.innerHTML =
+                    "👤";
+
+            }
+
+        }
+
+
+        // =====================================
+        // FEATURE CARD LOG
+        // =====================================
+
+        const featureCards =
+            document.querySelectorAll(
+                ".features-container article"
+            );
+
+
+        featureCards.forEach(
+            function (card) {
+
+                card.addEventListener(
+                    "click",
+                    function () {
+
+                        const title =
+                            card.querySelector(
+                                "h3"
+                            );
+
+                        if (title) {
+
+                            console.log(
+                                "Feature selected:",
+                                title.textContent.trim()
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+    }
+);
