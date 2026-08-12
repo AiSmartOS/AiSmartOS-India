@@ -1,74 +1,282 @@
-/* =========================================
-   AiSmartOS Authentication System
-   auth.js
-========================================= */
+/* =========================================================
+   AiSmartOS - Authentication
+   Email + Password + OAuth
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    setupPasswordStrength();
+
+    setupAuthForms();
+
+    setupOAuthButtons();
+
+    handleExistingSession();
+
+});
 
 
-/* =========================================
-   SUPABASE CONFIGURATION
-========================================= */
+/* =========================================================
+   SUPABASE CHECK
+   ========================================================= */
 
-const SUPABASE_URL =
-    "https://mxkzwbgtvaccfwlaovhr.supabase.co";
+function getSupabase() {
 
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_ttq-ivZPAf1btYyjvZYT7g_fN1TEyUt";
-
-
-/* =========================================
-   CREATE SUPABASE CLIENT
-========================================= */
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
-
-
-/* =========================================
-   REDIRECT URL
-========================================= */
-
-const REDIRECT_URL =
-    window.location.origin +
-    "/AiSmartOS-India/auth.html";
-
-
-/* =========================================
-   SOCIAL LOGIN
-========================================= */
-
-async function signInWithProvider(provider) {
-
-    try {
-
-        const { error } =
-            await supabaseClient.auth.signInWithOAuth({
-
-                provider: provider,
-
-                options: {
-                    redirectTo: REDIRECT_URL
-                }
-
-            });
-
-
-        if (error) {
-            throw error;
-        }
-
-    } catch (error) {
+    if (!window.aiSmartOSSupabase) {
 
         console.error(
-            provider + " login error:",
-            error
+            "Supabase is not initialized. Check config.js and script order."
         );
 
-        alert(
-            "Sign in failed.\n\n" +
-            error.message
+        return null;
+    }
+
+    return window.aiSmartOSSupabase;
+}
+
+
+/* =========================================================
+   ELEMENT HELPERS
+   ========================================================= */
+
+function get(id) {
+
+    return document.getElementById(id);
+
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+function showMessage(message, type = "error") {
+
+    const messageBox =
+        get("auth-message");
+
+
+    if (!messageBox) {
+
+        alert(message);
+
+        return;
+    }
+
+
+    messageBox.textContent =
+        message;
+
+
+    messageBox.className =
+        "auth-message " + type;
+
+
+    messageBox.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+function setLoading(button, loading) {
+
+    if (!button) return;
+
+
+    if (loading) {
+
+        button.dataset.originalText =
+            button.textContent;
+
+        button.textContent =
+            "Please wait...";
+
+        button.disabled =
+            true;
+
+    } else {
+
+        button.textContent =
+            button.dataset.originalText ||
+            "Continue";
+
+        button.disabled =
+            false;
+    }
+
+}
+
+
+/* =========================================================
+   PASSWORD STRENGTH
+   ========================================================= */
+
+function setupPasswordStrength() {
+
+    const password =
+        get("signup-password") ||
+        get("password");
+
+
+    const indicator =
+        get("password-strength");
+
+
+    const label =
+        get("password-strength-label");
+
+
+    if (!password) return;
+
+
+    password.addEventListener(
+        "input",
+        () => {
+
+            const value =
+                password.value;
+
+
+            if (!value) {
+
+                if (indicator)
+                    indicator.style.width = "0";
+
+
+                if (label) {
+
+                    label.textContent =
+                        "";
+
+                    label.className =
+                        "";
+
+                }
+
+                return;
+            }
+
+
+            let score = 0;
+
+
+            if (value.length >= 8)
+                score++;
+
+
+            if (/[a-z]/.test(value))
+                score++;
+
+
+            if (/[A-Z]/.test(value))
+                score++;
+
+
+            if (/[0-9]/.test(value))
+                score++;
+
+
+            if (/[^A-Za-z0-9]/.test(value))
+                score++;
+
+
+            let strength =
+                "Basic";
+
+
+            let className =
+                "basic";
+
+
+            let width =
+                "33%";
+
+
+            if (score >= 4) {
+
+                strength =
+                    "Strong";
+
+                className =
+                    "strong";
+
+                width =
+                    "100%";
+
+            } else if (score >= 3) {
+
+                strength =
+                    "Normal";
+
+                className =
+                    "normal";
+
+                width =
+                    "66%";
+
+            }
+
+
+            if (indicator) {
+
+                indicator.style.width =
+                    width;
+
+                indicator.className =
+                    "password-strength-bar " +
+                    className;
+
+            }
+
+
+            if (label) {
+
+                label.textContent =
+                    strength;
+
+                label.className =
+                    className;
+
+            }
+
+        }
+    );
+}
+
+
+/* =========================================================
+   AUTH FORMS
+   ========================================================= */
+
+function setupAuthForms() {
+
+    const signInForm =
+        get("signin-form");
+
+
+    const signUpForm =
+        get("signup-form");
+
+
+    if (signInForm) {
+
+        signInForm.addEventListener(
+            "submit",
+            handleSignIn
+        );
+
+    }
+
+
+    if (signUpForm) {
+
+        signUpForm.addEventListener(
+            "submit",
+            handleSignUp
         );
 
     }
@@ -76,124 +284,340 @@ async function signInWithProvider(provider) {
 }
 
 
-/* =========================================
-   GOOGLE LOGIN
-========================================= */
+/* =========================================================
+   SIGN IN
+   ========================================================= */
 
-async function signInWithGoogle() {
+async function handleSignIn(event) {
 
-    await signInWithProvider("google");
-
-}
+    event.preventDefault();
 
 
-/* =========================================
-   FACEBOOK LOGIN
-========================================= */
-
-async function signInWithFacebook() {
-
-    await signInWithProvider("facebook");
-
-}
+    const supabase =
+        getSupabase();
 
 
-/* =========================================
-   GITHUB LOGIN
-========================================= */
+    if (!supabase) {
 
-async function signInWithGitHub() {
-
-    await signInWithProvider("github");
-
-}
-
-
-/* =========================================
-   DISCORD LOGIN
-========================================= */
-
-async function signInWithDiscord() {
-
-    await signInWithProvider("discord");
-
-}
-
-
-/* =========================================
-   EMAIL LOGIN
-========================================= */
-
-async function signInWithEmail() {
-
-    const emailInput =
-        document.getElementById("email");
-
-
-    if (!emailInput) {
-
-        console.error(
-            "Email input not found."
+        showMessage(
+            "Authentication service is not available.",
+            "error"
         );
 
         return;
-
     }
 
 
     const email =
-        emailInput.value.trim();
+        get("signin-email")?.value.trim();
+
+
+    const password =
+        get("signin-password")?.value;
+
+
+    if (!email || !password) {
+
+        showMessage(
+            "Please enter your email and password.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const button =
+        event.submitter;
+
+
+    setLoading(
+        button,
+        true
+    );
+
+
+    const { data, error } =
+        await supabase.auth.signInWithPassword({
+
+            email: email,
+
+            password: password
+
+        });
+
+
+    setLoading(
+        button,
+        false
+    );
+
+
+    if (error) {
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        "Signed in successfully! Redirecting...",
+        "success"
+    );
+
+
+    redirectAfterLogin();
+
+}
+
+
+/* =========================================================
+   SIGN UP
+   ========================================================= */
+
+async function handleSignUp(event) {
+
+    event.preventDefault();
+
+
+    const supabase =
+        getSupabase();
+
+
+    if (!supabase) {
+
+        showMessage(
+            "Authentication service is not available.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const firstName =
+        get("signup-first-name")?.value.trim();
+
+
+    const email =
+        get("signup-email")?.value.trim();
+
+
+    const password =
+        get("signup-password")?.value;
+
+
+    if (!firstName) {
+
+        showMessage(
+            "Please enter your first name.",
+            "error"
+        );
+
+        return;
+    }
 
 
     if (!email) {
 
-        alert(
-            "Please enter your email address."
+        showMessage(
+            "Please enter your email.",
+            "error"
         );
 
         return;
-
     }
 
 
-    try {
+    if (!password) {
 
-        const { error } =
-            await supabaseClient.auth.signInWithOtp({
+        showMessage(
+            "Please enter a password.",
+            "error"
+        );
 
-                email: email,
+        return;
+    }
 
-                options: {
 
-                    emailRedirectTo:
-                        REDIRECT_URL
+    if (password.length < 6) {
+
+        showMessage(
+            "Password must contain at least 6 characters.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const button =
+        event.submitter;
+
+
+    setLoading(
+        button,
+        true
+    );
+
+
+    const { data, error } =
+        await supabase.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+
+                data: {
+
+                    first_name:
+                        firstName
 
                 }
 
-            });
+            }
+
+        });
 
 
-        if (error) {
-            throw error;
-        }
+    setLoading(
+        button,
+        false
+    );
 
 
-        alert(
-            "Magic link sent! 📧\n\n" +
-            "Check your email and click the link to continue."
+    if (error) {
+
+        showMessage(
+            error.message,
+            "error"
         );
 
+        return;
+    }
 
-    } catch (error) {
 
-        console.error(
-            "Email login error:",
-            error
+    /*
+       If email confirmation is enabled,
+       Supabase won't create an active session
+       until the user verifies their email.
+    */
+
+    if (!data.session) {
+
+        showMessage(
+            "Account created! Please check your email to verify your account.",
+            "success"
         );
 
-        alert(
-            "Email sign in failed.\n\n" +
-            error.message
+        return;
+    }
+
+
+    showMessage(
+        "Account created successfully! Redirecting...",
+        "success"
+    );
+
+
+    redirectAfterLogin();
+
+}
+
+
+/* =========================================================
+   OAUTH
+   ========================================================= */
+
+function setupOAuthButtons() {
+
+    const providers = [
+        "google",
+        "facebook",
+        "github",
+        "discord"
+    ];
+
+
+    providers.forEach(provider => {
+
+        const buttons =
+            document.querySelectorAll(
+                `[data-provider="${provider}"]`
+            );
+
+
+        buttons.forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    signInWithProvider(
+                        provider
+                    );
+
+                }
+            );
+
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   OAUTH LOGIN
+   ========================================================= */
+
+async function signInWithProvider(provider) {
+
+    const supabase =
+        getSupabase();
+
+
+    if (!supabase) {
+
+        showMessage(
+            "Authentication service is not available.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const redirect =
+        getRedirectURL();
+
+
+    const { error } =
+        await supabase.auth.signInWithOAuth({
+
+            provider: provider,
+
+            options: {
+
+                redirectTo:
+                    redirect
+
+            }
+
+        });
+
+
+    if (error) {
+
+        showMessage(
+            error.message,
+            "error"
         );
 
     }
@@ -201,204 +625,161 @@ async function signInWithEmail() {
 }
 
 
-/* =========================================
-   GET CURRENT USER
-========================================= */
+/* =========================================================
+   REDIRECT URL
+   ========================================================= */
 
-async function getCurrentUser() {
+function getRedirectURL() {
 
-    try {
-
-        const {
-            data: { user },
-            error
-        } =
-            await supabaseClient.auth.getUser();
-
-
-        if (error) {
-            throw error;
-        }
-
-
-        return user;
-
-
-    } catch (error) {
-
-        console.error(
-            "User check error:",
-            error
+    const params =
+        new URLSearchParams(
+            window.location.search
         );
 
-        return null;
+
+    const requested =
+        params.get("redirect");
+
+
+    if (requested) {
+
+        return new URL(
+            requested,
+            window.location.origin
+        ).href;
 
     }
 
+
+    return new URL(
+        "index.html",
+        window.location.origin
+    ).href;
 }
 
 
-/* =========================================
-   LOGOUT
-========================================= */
+/* =========================================================
+   AFTER LOGIN
+   ========================================================= */
 
-async function logout() {
+function redirectAfterLogin() {
 
-    try {
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
-        const { error } =
-            await supabaseClient.auth.signOut();
+
+    const requested =
+        params.get("redirect");
 
 
-        if (error) {
-            throw error;
-        }
-
+    if (requested) {
 
         window.location.href =
-            "index.html";
+            new URL(
+                requested,
+                window.location.origin
+            ).href;
+
+        return;
+    }
 
 
-    } catch (error) {
+    window.location.href =
+        "index.html";
+}
 
-        console.error(
-            "Logout error:",
-            error
+
+/* =========================================================
+   EXISTING SESSION
+   ========================================================= */
+
+async function handleExistingSession() {
+
+    const supabase =
+        getSupabase();
+
+
+    if (!supabase) return;
+
+
+    const { data } =
+        await supabase.auth.getSession();
+
+
+    if (!data.session) return;
+
+
+    /*
+       Don't force redirect when user is simply
+       viewing auth.html after logging out or
+       opening the page manually.
+    */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
         );
 
-        alert(
-            "Logout failed.\n\n" +
-            error.message
-        );
+
+    if (params.has("redirect")) {
+
+        redirectAfterLogin();
 
     }
 
 }
 
 
-/* =========================================
-   AUTH STATE LISTENER
-========================================= */
+/* =========================================================
+   GOOGLE / OAUTH CALLBACK
+   ========================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-    (event, session) => {
+async function handleOAuthCallback() {
 
-        console.log(
-            "AiSmartOS Auth Event:",
-            event
+    const supabase =
+        getSupabase();
+
+
+    if (!supabase) return;
+
+
+    const { data, error } =
+        await supabase.auth.getSession();
+
+
+    if (error) {
+
+        console.error(
+            "OAuth session error:",
+            error.message
         );
 
+        return;
+    }
 
-        if (session) {
 
-            console.log(
-                "Logged in user:",
-                session.user
-            );
+    if (data.session) {
 
-        }
+        redirectAfterLogin();
 
     }
-);
+
+}
 
 
-/* =========================================
-   CONNECT LOGIN BUTTONS
-========================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+handleOAuthCallback();
 
 
-        /* Google */
+/* =========================================================
+   EXPORT
+   ========================================================= */
 
-        const googleButton =
-            document.getElementById(
-                "google-login"
-            );
+window.AiSmartOSAuth = {
 
-        if (googleButton) {
+    signInWithProvider,
 
-            googleButton.addEventListener(
-                "click",
-                signInWithGoogle
-            );
+    redirectAfterLogin
 
-        }
-
-
-        /* Facebook */
-
-        const facebookButton =
-            document.getElementById(
-                "facebook-login"
-            );
-
-        if (facebookButton) {
-
-            facebookButton.addEventListener(
-                "click",
-                signInWithFacebook
-            );
-
-        }
-
-
-        /* GitHub */
-
-        const githubButton =
-            document.getElementById(
-                "github-login"
-            );
-
-        if (githubButton) {
-
-            githubButton.addEventListener(
-                "click",
-                signInWithGitHub
-            );
-
-        }
-
-
-        /* Discord */
-
-        const discordButton =
-            document.getElementById(
-                "discord-login"
-            );
-
-        if (discordButton) {
-
-            discordButton.addEventListener(
-                "click",
-                signInWithDiscord
-            );
-
-        }
-
-
-        /* Email */
-
-        const emailButton =
-            document.getElementById(
-                "email-login"
-            );
-
-        if (emailButton) {
-
-            emailButton.addEventListener(
-                "click",
-                signInWithEmail
-            );
-
-        }
-
-
-        console.log(
-            "✅ AiSmartOS Authentication System Loaded"
-        );
-
-    }
-);
+};
