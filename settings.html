@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>My Account — AiSmartOS</title><link rel="stylesheet" href="style.css">
+</head>
+<body class="settings-page">
+  <header class="site-header"><a class="brand" href="index.html"><span class="brand-mark">A</span>AiSmart<span class="brand-blue">OS</span></a><a class="get-started" href="index.html">Home</a></header>
+  <main class="settings-wrap">
+    <section class="profile-card">
+      <div class="profile-head"><img id="profileAvatar" class="profile-avatar" alt="Profile picture"><div><div class="mini-label">MY ACCOUNT</div><h1 id="profileName">User</h1><p id="profileEmail"></p></div></div>
+      <div class="settings-form">
+        <label>First name<input id="editName" type="text"></label>
+        <label>Profile picture<input id="editAvatar" type="file" accept="image/*"></label>
+        <button id="saveProfile" class="btn primary">Save changes</button>
+        <button id="logoutBtn" class="btn danger">Sign out</button>
+        <p id="settingsMessage"></p>
+      </div>
+    </section>
+  </main>
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="settings.js"></script>
+</body>
+</html>
