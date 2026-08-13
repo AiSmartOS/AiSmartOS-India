@@ -1,67 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AiSmartOS — Next-Gen AI Operating System</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AiSmartOS — Next-Gen AI Operating System
+    </title>
 
     <meta
         name="description"
         content="AiSmartOS — India's next-generation AI-powered operating system."
     >
 
-    <link rel="stylesheet" href="style.css">
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <meta
+        name="author"
+        content="AiSmartOS"
+    >
+
+    <link
+        rel="icon"
+        type="image/jpeg"
+        href="IMG-20260805-WA0000.jpg"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="IMG-20260805-WA0000.jpg"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-<!-- ================= HEADER ================= -->
+
+<!-- =====================================================
+     FIXED HEADER
+===================================================== -->
 
 <header class="site-header">
 
     <div class="header-left">
 
+
+        <!-- MOBILE MENU BUTTON -->
+
         <button
             id="menuBtn"
             class="menu-btn"
-            aria-label="Open menu"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-controls="drawer"
+            aria-expanded="false"
         >
+
             <span></span>
             <span></span>
             <span></span>
+
         </button>
 
-        <a href="index.html" class="brand">
+
+        <!-- LOGO -->
+
+        <a
+            href="#home"
+            class="brand"
+            aria-label="AiSmartOS Home"
+        >
 
             <div class="brand-logo">
-                <span>A</span>
+
+                <img
+                    src="IMG-20260805-WA0000.jpg"
+                    alt="AiSmartOS Logo"
+                >
+
             </div>
 
+
             <div class="brand-name">
+
                 AiSmart<span>OS</span>
+
             </div>
 
         </a>
 
     </div>
 
-    <!-- Desktop navigation -->
 
-    <nav class="desktop-nav">
 
-        <a href="#home" class="active">Home</a>
-        <a href="#features">Features</a>
-        <a href="#ai">AI Core</a>
-        <a href="#system">System</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+    <!-- =================================================
+         DESKTOP NAVIGATION
+    ================================================== -->
+
+    <nav
+        class="desktop-nav"
+        aria-label="Main navigation"
+    >
+
+        <a
+            href="#home"
+            class="active"
+        >
+            Home
+        </a>
+
+        <a href="#features">
+            Features
+        </a>
+
+        <a href="#ai">
+            AI Core
+        </a>
+
+        <a href="#system">
+            System
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="#contact">
+            Contact
+        </a>
 
     </nav>
 
+
+
+    <!-- =================================================
+         HEADER RIGHT
+    ================================================== -->
+
     <div class="header-right">
 
+        <!--
+            JS will put the user's account here
+            after login.
+        -->
+
         <div id="accountHeader"></div>
+
+
+        <!-- SIGN IN / GET STARTED -->
 
         <a
             href="auth.html"
@@ -76,71 +177,171 @@
 </header>
 
 
-<!-- ================= MOBILE DRAWER ================= -->
 
-<div id="drawerOverlay" class="drawer-overlay"></div>
+<!-- =====================================================
+     MOBILE DRAWER OVERLAY
+===================================================== -->
 
-<aside id="drawer" class="drawer">
+<div
+    id="drawerOverlay"
+    class="drawer-overlay"
+    aria-hidden="true"
+>
+</div>
+
+
+
+<!-- =====================================================
+     MOBILE DRAWER
+===================================================== -->
+
+<aside
+    id="drawer"
+    class="drawer"
+    aria-hidden="true"
+>
+
+
+    <!-- DRAWER HEADER -->
 
     <div class="drawer-header">
 
-        <a href="index.html" class="drawer-brand">
+
+        <a
+            href="#home"
+            class="drawer-brand"
+        >
 
             <div class="brand-logo small">
-                <span>A</span>
+
+                <img
+                    src="IMG-20260805-WA0000.jpg"
+                    alt="AiSmartOS Logo"
+                >
+
             </div>
 
-            <strong>AiSmartOS</strong>
+            <strong>
+                AiSmartOS
+            </strong>
 
         </a>
 
-        <button id="closeDrawer" class="drawer-close">
+
+        <button
+            id="closeDrawer"
+            class="drawer-close"
+            type="button"
+            aria-label="Close navigation menu"
+        >
             ×
         </button>
 
     </div>
 
 
-    <nav class="drawer-nav">
+
+    <!-- =================================================
+         DRAWER NAVIGATION
+    ================================================== -->
+
+    <nav
+        class="drawer-nav"
+        aria-label="Mobile navigation"
+    >
 
         <a href="#home">
-            <span>⌂</span>
-            Home
+
+            <span class="drawer-nav-icon">
+                ⌂
+            </span>
+
+            <span>
+                Home
+            </span>
+
         </a>
+
 
         <a href="#features">
-            <span>✦</span>
-            Features
+
+            <span class="drawer-nav-icon">
+                ✦
+            </span>
+
+            <span>
+                Features
+            </span>
+
         </a>
+
 
         <a href="#ai">
-            <span>✧</span>
-            AI Core
+
+            <span class="drawer-nav-icon">
+                ✧
+            </span>
+
+            <span>
+                AI Core
+            </span>
+
         </a>
+
 
         <a href="#system">
-            <span>◇</span>
-            System
+
+            <span class="drawer-nav-icon">
+                ◇
+            </span>
+
+            <span>
+                System
+            </span>
+
         </a>
+
 
         <a href="#about">
-            <span>ⓘ</span>
-            About
+
+            <span class="drawer-nav-icon">
+                ⓘ
+            </span>
+
+            <span>
+                About
+            </span>
+
         </a>
 
+
         <a href="#contact">
-            <span>✉</span>
-            Contact
+
+            <span class="drawer-nav-icon">
+                ✉
+            </span>
+
+            <span>
+                Contact
+            </span>
+
         </a>
 
     </nav>
 
 
-    <!-- Bottom area -->
+
+    <!-- =================================================
+         DRAWER BOTTOM
+    ================================================== -->
 
     <div class="drawer-bottom">
 
-        <!-- Only visible when logged in -->
+
+        <!--
+            THIS ACCOUNT CARD WILL ONLY APPEAR
+            WHEN USER IS LOGGED IN.
+        -->
 
         <a
             href="settings.html"
@@ -148,12 +349,20 @@
             class="drawer-account hidden"
         >
 
+
             <div
                 id="drawerAvatar"
                 class="drawer-avatar"
             >
-                👤
+
+                <img
+                    id="drawerAvatarImage"
+                    src="IMG-20260805-WA0000.jpg"
+                    alt="User profile"
+                >
+
             </div>
+
 
             <div class="drawer-account-info">
 
@@ -170,13 +379,18 @@
         </a>
 
 
+
+        <!-- SETTINGS -->
+
         <a
             href="settings.html"
             id="drawerSettings"
             class="drawer-settings hidden"
         >
 
-            <span>⚙</span>
+            <span class="settings-icon">
+                ⚙
+            </span>
 
             <span>
                 Settings
@@ -189,75 +403,156 @@
 </aside>
 
 
-<!-- ================= MAIN ================= -->
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
 
 <main>
 
-<!-- HERO -->
 
-<section id="home" class="hero">
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section
+    id="home"
+    class="hero"
+>
+
+
+    <!-- HERO CONTENT -->
 
     <div class="hero-content">
 
+
         <div class="india-badge">
+
             🇮🇳 India's First AI-Powered Operating System
+
         </div>
 
+
+
         <h1>
+
             AiSmart<span>OS</span>
+
         </h1>
 
+
+
         <h2>
+
             Next-Gen AI Based Operating System
+
         </h2>
 
-        <p>
+
+
+        <p class="hero-description">
+
             AiSmartOS is a next-generation operating system
             that brings the power of Artificial Intelligence
             to your fingertips.
-            <br>
-            Smarter. Faster. Safer. Built for the future.
+
+            <br><br>
+
+            Smarter. Faster. Safer.
+            Built for the future.
+
         </p>
 
+
+
+        <!-- HERO BUTTONS -->
+
         <div class="hero-buttons">
+
 
             <a
                 href="#features"
                 class="primary-btn"
             >
+
                 🚀 Explore AiSmartOS
+
             </a>
+
+
 
             <a
                 href="#ai"
                 class="secondary-btn"
             >
+
                 ▶ Watch Demo
+
             </a>
 
         </div>
 
 
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
         <div class="stats">
 
-            <div>
-                <strong>100%</strong>
-                <span>AI Powered</span>
-            </div>
 
             <div>
-                <strong>10x</strong>
-                <span>Faster</span>
+
+                <strong>
+                    100%
+                </strong>
+
+                <span>
+                    AI Powered
+                </span>
+
             </div>
 
-            <div>
-                <strong>Next-Gen</strong>
-                <span>Security</span>
-            </div>
+
 
             <div>
-                <strong>Always</strong>
-                <span>Privacy First</span>
+
+                <strong>
+                    10x
+                </strong>
+
+                <span>
+                    Faster
+                </span>
+
+            </div>
+
+
+
+            <div>
+
+                <strong>
+                    Next-Gen
+                </strong>
+
+                <span>
+                    Security
+                </span>
+
+            </div>
+
+
+
+            <div>
+
+                <strong>
+                    Always
+                </strong>
+
+                <span>
+                    Privacy First
+                </span>
+
             </div>
 
         </div>
@@ -265,19 +560,30 @@
     </div>
 
 
-    <!-- Hero visual -->
+
+    <!-- =================================================
+         HERO VISUAL
+    ================================================== -->
 
     <div class="hero-visual">
 
+
         <div class="os-window">
+
+
+            <!-- WINDOW TOP -->
 
             <div class="window-top">
 
+
                 <div class="window-dots">
+
                     <i></i>
                     <i></i>
                     <i></i>
+
                 </div>
+
 
                 <span>
                     AiSmartOS
@@ -286,36 +592,80 @@
             </div>
 
 
+
+            <!-- WINDOW BODY -->
+
             <div class="os-body">
+
+
+                <!-- SIDEBAR -->
 
                 <div class="os-sidebar">
 
-                    <span class="selected">◉ AI Core</span>
-                    <span>▣ Files</span>
-                    <span>▣ Apps</span>
-                    <span>⚙ Settings</span>
-                    <span>♢ Security</span>
+                    <span class="selected">
+                        ◉ AI Core
+                    </span>
+
+                    <span>
+                        ▣ Files
+                    </span>
+
+                    <span>
+                        ▣ Apps
+                    </span>
+
+                    <span>
+                        ⚙ Settings
+                    </span>
+
+                    <span>
+                        ♢ Security
+                    </span>
 
                 </div>
 
 
+
+                <!-- MAIN OS AREA -->
+
                 <div class="os-main">
 
+
                     <h3>
-                        Hello, <span id="heroUserName">User</span> 👋
+
+                        Hello,
+                        <span id="heroUserName">
+                            User
+                        </span>
+                        👋
+
                     </h3>
+
 
                     <p>
                         How can I assist you today?
                     </p>
 
+
+
                     <div class="ai-orb">
-                        <div>✦</div>
+
+                        <div>
+                            ✦
+                        </div>
+
                     </div>
 
+
+
                     <div class="os-search">
+
                         Ask AiSmart anything...
-                        <span>⌕</span>
+
+                        <span>
+                            ⌕
+                        </span>
+
                     </div>
 
                 </div>
@@ -329,25 +679,42 @@
 </section>
 
 
-<!-- ================= WHY ================= -->
 
-<section id="features" class="features-section">
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section
+    id="features"
+    class="features-section"
+>
+
 
     <div class="section-heading">
+
 
         <span>
             WHY AiSmartOS?
         </span>
 
+
         <h2>
+
             Built for the Future.
-            <em>Powered by AI.</em>
+            <em>
+                Powered by AI.
+            </em>
+
         </h2>
 
     </div>
 
 
+
     <div class="feature-grid">
+
+
+        <!-- CARD 1 -->
 
         <article class="feature-card">
 
@@ -367,6 +734,9 @@
         </article>
 
 
+
+        <!-- CARD 2 -->
+
         <article class="feature-card">
 
             <div class="feature-icon purple">
@@ -378,12 +748,15 @@
             </h3>
 
             <p>
-                Optimized performance for a
-                smooth and lightning-fast experience.
+                Optimized performance for a smooth
+                and lightning-fast experience.
             </p>
 
         </article>
 
+
+
+        <!-- CARD 3 -->
 
         <article class="feature-card">
 
@@ -403,6 +776,9 @@
         </article>
 
 
+
+        <!-- CARD 4 -->
+
         <article class="feature-card">
 
             <div class="feature-icon orange">
@@ -420,6 +796,9 @@
 
         </article>
 
+
+
+        <!-- CARD 5 -->
 
         <article class="feature-card">
 
@@ -443,57 +822,121 @@
 </section>
 
 
-<!-- ================= AI ================= -->
 
-<section id="ai" class="mission-section">
+<!-- =====================================================
+     AI CORE / MISSION
+===================================================== -->
+
+<section
+    id="ai"
+    class="mission-section"
+>
+
+
+    <!-- MISSION LOGO -->
 
     <div class="mission-logo">
+
         <div class="mission-logo-inner">
-            A
+
+            <img
+                src="IMG-20260805-WA0000.jpg"
+                alt="AiSmartOS"
+            >
+
         </div>
+
     </div>
 
+
+
+    <!-- MISSION TEXT -->
+
     <div class="mission-text">
+
 
         <span>
             Our Mission
         </span>
 
+
         <h2>
+
             Making Technology
-            <strong>Smarter</strong>
+            <strong>
+                Smarter
+            </strong>
+
             <br>
+
             and Life Simpler
+
         </h2>
 
+
         <p>
+
             AiSmartOS is not just an operating system.
             It is a smart companion that learns, adapts
             and grows with you.
+
         </p>
+
+
 
         <div class="tags">
 
-            <span>AI First</span>
-            <span>User Focused</span>
-            <span>Indian Innovation</span>
-            <span>Future Ready</span>
+            <span>
+                AI First
+            </span>
+
+            <span>
+                User Focused
+            </span>
+
+            <span>
+                Indian Innovation
+            </span>
+
+            <span>
+                Future Ready
+            </span>
 
         </div>
 
     </div>
 
 
+
+    <!-- SYSTEM PREVIEW -->
+
     <div class="system-preview">
+
 
         <div class="preview-screen">
 
+
             <div class="preview-sidebar">
-                <span>AI Core</span>
-                <span>Files</span>
-                <span>Apps</span>
-                <span>Settings</span>
+
+                <span>
+                    AI Core
+                </span>
+
+                <span>
+                    Files
+                </span>
+
+                <span>
+                    Apps
+                </span>
+
+                <span>
+                    Settings
+                </span>
+
             </div>
+
+
 
             <div class="preview-center">
 
@@ -510,119 +953,201 @@
 </section>
 
 
-<!-- ================= SYSTEM ================= -->
 
-<section id="system" class="simple-section">
+<!-- =====================================================
+     SYSTEM
+===================================================== -->
+
+<section
+    id="system"
+    class="simple-section"
+>
+
 
     <div class="section-heading">
+
 
         <span>
             AiSmart SYSTEM
         </span>
 
+
         <h2>
+
             One Ecosystem.
-            <em>Infinite Possibilities.</em>
+            <em>
+                Infinite Possibilities.
+            </em>
+
         </h2>
 
     </div>
 
+
     <p>
+
         AiSmartOS is designed to bring AI,
         applications, files, security and
         intelligent system tools together
         in one unified environment.
+
     </p>
 
 </section>
 
 
-<!-- ================= ABOUT ================= -->
 
-<section id="about" class="simple-section">
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section
+    id="about"
+    class="simple-section"
+>
+
 
     <div class="section-heading">
+
 
         <span>
             ABOUT AiSmartOS
         </span>
 
+
         <h2>
+
             Technology designed
-            <em>for people.</em>
+            <em>
+                for people.
+            </em>
+
         </h2>
 
     </div>
 
+
     <p>
+
         AiSmartOS is an emerging AI-powered
         operating system concept designed in India
         to deliver an intuitive, clean and efficient
         computing experience.
+
     </p>
 
 </section>
 
 
-<!-- ================= CONTACT ================= -->
 
-<section id="contact" class="simple-section">
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+    id="contact"
+    class="simple-section"
+>
+
 
     <div class="section-heading">
+
 
         <span>
             CONTACT
         </span>
 
+
         <h2>
+
             Connect with
-            <em>AiSmartOS.</em>
+            <em>
+                AiSmartOS.
+            </em>
+
         </h2>
 
     </div>
 
+
     <p>
+
         More communication and community features
         will be added to AiSmartOS in future.
+
     </p>
 
 </section>
 
+
 </main>
 
 
-<!-- ================= ACE AI BUTTON ================= -->
+
+<!-- =====================================================
+     ACE AI FLOATING BUTTON
+===================================================== -->
 
 <button
     id="aceAiButton"
     class="ace-ai-button"
+    type="button"
     aria-label="Open ACE AI"
 >
 
-    <span>
-        A
-    </span>
+
+    <img
+        src="acelogo.jpg"
+        alt="ACE AI"
+    >
 
 </button>
 
 
-<!-- ================= FOOTER ================= -->
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
-    <div>
-        © 2026 AiSmartOS. All rights reserved.
-    </div>
 
     <div>
-        Made with ❤️ in India
+
+        © 2026 AiSmartOS.
+        All rights reserved.
+
     </div>
+
+
+    <div>
+
+        Made with ❤️ in India 🇮🇳
+
+    </div>
+
 
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+
+<!-- =====================================================
+     WEBSITE JAVASCRIPT
+===================================================== -->
+
 <script src="script.js"></script>
 
+
 </body>
+
 </html>
