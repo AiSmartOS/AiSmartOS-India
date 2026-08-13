@@ -1,604 +1,583 @@
 /* =========================================================
-   AiSmartOS - Main Website Script
-   ========================================================= */
+   AiSmartOS
+   Main Website JavaScript
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-    setupHeader();
-    setupDrawer();
-    setupProtectedLinks();
-    setupAccountButtons();
-    setupAceAI();
-    updateAccountUI();
-    listenForAuthChanges();
+const SUPABASE_URL =
+    "https://mxkzwbgtvaccfwlaovhr.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_ttq-ivZPAf1btYyjvZYT7g_fN1TEyUt";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const closeDrawer =
+    document.getElementById("closeDrawer");
+
+const drawer =
+    document.getElementById("drawer");
+
+const drawerOverlay =
+    document.getElementById("drawerOverlay");
+
+const drawerAccount =
+    document.getElementById("drawerAccount");
+
+const drawerSettings =
+    document.getElementById("drawerSettings");
+
+const drawerAvatar =
+    document.getElementById("drawerAvatar");
+
+const drawerName =
+    document.getElementById("drawerName");
+
+const signInBtn =
+    document.getElementById("signInBtn");
+
+const accountHeader =
+    document.getElementById("accountHeader");
+
+const aceAiButton =
+    document.getElementById("aceAiButton");
+
+const heroUserName =
+    document.getElementById("heroUserName");
+
+
+/* =========================================================
+   DRAWER
+========================================================= */
+
+function openDrawer() {
+
+    if (!drawer) return;
+
+    drawer.classList.add("open");
+
+    drawerOverlay?.classList.add("open");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeDrawerMenu() {
+
+    if (!drawer) return;
+
+    drawer.classList.remove("open");
+
+    drawerOverlay?.classList.remove("open");
+
+    document.body.style.overflow = "";
+}
+
+
+menuBtn?.addEventListener(
+    "click",
+    openDrawer
+);
+
+
+closeDrawer?.addEventListener(
+    "click",
+    closeDrawerMenu
+);
+
+
+drawerOverlay?.addEventListener(
+    "click",
+    closeDrawerMenu
+);
+
+
+/* Close drawer when clicking a link */
+
+document.querySelectorAll(
+    ".drawer-nav a"
+).forEach(link => {
+
+    link.addEventListener(
+        "click",
+        closeDrawerMenu
+    );
+
 });
 
 
 /* =========================================================
-   FIXED HEADER
-   ========================================================= */
-
-function setupHeader() {
-
-    const header =
-        document.querySelector("header") ||
-        document.querySelector(".site-header");
-
-    if (!header) return;
-
-    header.classList.add("aismartos-fixed-header");
-}
-
-
-/* =========================================================
-   MOBILE DRAWER
-   ========================================================= */
-
-function setupDrawer() {
-
-    const drawer =
-        document.querySelector("#drawer") ||
-        document.querySelector(".drawer") ||
-        document.querySelector(".side-drawer");
-
-    const overlay =
-        document.querySelector("#drawer-overlay") ||
-        document.querySelector(".drawer-overlay");
-
-    const menuButton =
-        document.querySelector("#menu-btn") ||
-        document.querySelector(".menu-btn") ||
-        document.querySelector("[data-menu]");
-
-    const closeButton =
-        document.querySelector("#drawer-close") ||
-        document.querySelector(".drawer-close") ||
-        document.querySelector("[data-drawer-close]");
-
-    if (!drawer || !menuButton) return;
-
-
-    function openDrawer() {
-
-        drawer.classList.add("active");
-        drawer.classList.add("open");
-
-        if (overlay) {
-            overlay.classList.add("active");
-            overlay.classList.add("show");
-        }
-
-        document.body.classList.add("drawer-open");
-    }
-
-
-    function closeDrawer() {
-
-        drawer.classList.remove("active");
-        drawer.classList.remove("open");
-
-        if (overlay) {
-            overlay.classList.remove("active");
-            overlay.classList.remove("show");
-        }
-
-        document.body.classList.remove("drawer-open");
-    }
-
-
-    menuButton.addEventListener("click", (event) => {
-
-        event.preventDefault();
-
-        openDrawer();
-
-    });
-
-
-    if (closeButton) {
-
-        closeButton.addEventListener("click", (event) => {
-
-            event.preventDefault();
-
-            closeDrawer();
-
-        });
-
-    }
-
-
-    if (overlay) {
-
-        overlay.addEventListener("click", closeDrawer);
-
-    }
-
-
-    drawer.querySelectorAll("a").forEach(link => {
-
-        link.addEventListener("click", closeDrawer);
-
-    });
-
-
-    document.addEventListener("keydown", event => {
-
-        if (event.key === "Escape") {
-
-            closeDrawer();
-
-        }
-
-    });
-}
-
-
-/* =========================================================
-   SUPABASE USER
-   ========================================================= */
-
-async function getCurrentUser() {
-
-    if (!window.aiSmartOSSupabase) {
-
-        console.warn("Supabase is not initialized.");
-
-        return null;
-    }
-
-
-    const { data, error } =
-        await window.aiSmartOSSupabase.auth.getUser();
-
-
-    if (error) {
-
-        console.warn("Unable to get user:", error.message);
-
-        return null;
-    }
-
-
-    return data.user || null;
-}
-
-
-/* =========================================================
-   GET FIRST NAME
-   ========================================================= */
+   FIRST NAME
+========================================================= */
 
 function getFirstName(user) {
 
-    if (!user) return "User";
-
+    if (!user) {
+        return "User";
+    }
 
     const metadata =
         user.user_metadata || {};
 
-
-    const firstName =
-        metadata.first_name ||
-        metadata.firstName ||
+    let name =
+        metadata.full_name ||
         metadata.name ||
+        metadata.display_name ||
+        metadata.first_name ||
         user.email?.split("@")[0] ||
         "User";
 
 
-    return firstName
+    name =
+        String(name)
         .trim()
         .split(/\s+/)[0];
+
+
+    return name || "User";
 }
 
 
 /* =========================================================
-   GET PROFILE IMAGE
-   ========================================================= */
+   AVATAR
+========================================================= */
 
-function getProfileImage(user) {
+function getAvatar(user) {
 
-    if (!user) return "";
-
+    if (!user) return null;
 
     const metadata =
         user.user_metadata || {};
 
-
     return (
         metadata.avatar_url ||
-        metadata.avatar ||
         metadata.picture ||
-        ""
+        metadata.photo_url ||
+        null
     );
 }
 
 
 /* =========================================================
-   UPDATE ACCOUNT UI
-   ========================================================= */
+   CREATE AVATAR
+========================================================= */
 
-async function updateAccountUI() {
+function setDrawerAvatar(user) {
 
-    const user =
-        await getCurrentUser();
+    if (!drawerAvatar) return;
 
+    const avatar =
+        getAvatar(user);
 
-    const signInElements =
-        document.querySelectorAll(
-            ".nav-button, .sign-in-btn, #sign-in-btn, [data-signin]"
-        );
+    drawerAvatar.innerHTML = "";
 
+    if (avatar) {
 
-    const accountElements =
-        document.querySelectorAll(
-            ".my-account, #my-account, [data-account]"
-        );
+        const img =
+            document.createElement("img");
 
+        img.src = avatar;
 
-    const accountNames =
-        document.querySelectorAll(
-            ".account-name, #account-name, [data-account-name]"
-        );
+        img.alt = "Profile";
 
+        img.onerror = () => {
 
-    const accountImages =
-        document.querySelectorAll(
-            ".account-dp, #account-dp, [data-account-dp]"
-        );
+            drawerAvatar.innerHTML =
+                "👤";
 
+        };
 
-    if (user) {
-
-        /* -------------------------
-           LOGGED IN
-        ------------------------- */
-
-        signInElements.forEach(element => {
-
-            element.style.display = "none";
-
-        });
-
-
-        accountElements.forEach(element => {
-
-            element.style.display = "";
-
-        });
-
-
-        const firstName =
-            getFirstName(user);
-
-
-        accountNames.forEach(element => {
-
-            element.textContent = firstName;
-
-        });
-
-
-        const image =
-            getProfileImage(user);
-
-
-        accountImages.forEach(element => {
-
-            if (image) {
-
-                element.src = image;
-
-            } else {
-
-                element.src =
-                    "https://ui-avatars.com/api/?name=" +
-                    encodeURIComponent(firstName) +
-                    "&background=5865f2&color=ffffff";
-
-            }
-
-            element.alt =
-                firstName;
-
-        });
-
+        drawerAvatar.appendChild(img);
 
     } else {
 
-        /* -------------------------
-           LOGGED OUT
-        ------------------------- */
-
-        signInElements.forEach(element => {
-
-            element.style.display = "";
-
-        });
-
-
-        accountElements.forEach(element => {
-
-            element.style.display = "none";
-
-        });
+        drawerAvatar.innerHTML =
+            "👤";
 
     }
+}
+
+
+/* =========================================================
+   HEADER ACCOUNT
+========================================================= */
+
+function renderHeaderAccount(user) {
+
+    if (!accountHeader) return;
+
+    accountHeader.innerHTML = "";
+
+    if (!user) return;
+
+    const name =
+        getFirstName(user);
+
+    const avatar =
+        getAvatar(user);
+
+
+    const link =
+        document.createElement("a");
+
+    link.href =
+        "settings.html";
+
+    link.className =
+        "header-account";
+
+
+    if (avatar) {
+
+        const img =
+            document.createElement("img");
+
+        img.src = avatar;
+
+        img.className =
+            "header-avatar";
+
+        img.alt =
+            "Profile";
+
+        link.appendChild(img);
+
+    }
+
+
+    const nameElement =
+        document.createElement("span");
+
+    nameElement.className =
+        "header-account-name";
+
+    nameElement.textContent =
+        name;
+
+    link.appendChild(
+        nameElement
+    );
+
+
+    accountHeader.appendChild(
+        link
+    );
+}
+
+
+/* =========================================================
+   RENDER LOGIN STATE
+========================================================= */
+
+async function updateAuthUI() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        const session =
+            data?.session;
+
+        const user =
+            session?.user || null;
+
+
+        if (user) {
+
+            /* =========================
+               LOGGED IN
+            ========================= */
+
+            if (signInBtn) {
+
+                signInBtn.textContent =
+                    "My Account";
+
+                signInBtn.href =
+                    "settings.html";
+
+            }
+
+
+            drawerAccount
+                ?.classList
+                .remove("hidden");
+
+
+            drawerSettings
+                ?.classList
+                .remove("hidden");
+
+
+            const firstName =
+                getFirstName(user);
+
+
+            if (drawerName) {
+
+                drawerName.textContent =
+                    firstName;
+
+            }
+
+
+            if (heroUserName) {
+
+                heroUserName.textContent =
+                    firstName;
+
+            }
+
+
+            setDrawerAvatar(user);
+
+            renderHeaderAccount(user);
+
+
+        } else {
+
+            /* =========================
+               LOGGED OUT
+            ========================= */
+
+            if (signInBtn) {
+
+                signInBtn.textContent =
+                    "Get Started";
+
+                signInBtn.href =
+                    "auth.html";
+
+            }
+
+
+            drawerAccount
+                ?.classList
+                .add("hidden");
+
+
+            drawerSettings
+                ?.classList
+                .add("hidden");
+
+
+            if (heroUserName) {
+
+                heroUserName.textContent =
+                    "User";
+
+            }
+
+
+            if (accountHeader) {
+
+                accountHeader.innerHTML =
+                    "";
+
+            }
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Auth UI error:",
+            error
+        );
+
+    }
+
 }
 
 
 /* =========================================================
    AUTH STATE LISTENER
-   ========================================================= */
+========================================================= */
 
-function listenForAuthChanges() {
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        (_event, session) => {
 
-    if (!window.aiSmartOSSupabase) return;
+            const user =
+                session?.user || null;
 
 
-    window.aiSmartOSSupabase.auth.onAuthStateChange(
-        () => {
+            updateAuthUI();
 
-            updateAccountUI();
+
+            if (user) {
+
+                const firstName =
+                    getFirstName(user);
+
+                if (heroUserName) {
+
+                    heroUserName.textContent =
+                        firstName;
+
+                }
+
+            }
 
         }
     );
-}
 
 
 /* =========================================================
-   PROTECTED LINKS
-   ========================================================= */
+   ACE AI
+========================================================= */
 
-function setupProtectedLinks() {
+aceAiButton?.addEventListener(
+    "click",
+    async () => {
 
-    document.addEventListener("click", async event => {
+        try {
 
-        const protectedElement =
-            event.target.closest(
-                "[data-requires-login]"
-            );
-
-
-        if (!protectedElement) return;
-
-
-        const user =
-            await getCurrentUser();
+            const {
+                data
+            } =
+                await supabaseClient
+                    .auth
+                    .getSession();
 
 
-        if (!user) {
+            if (data?.session) {
 
-            event.preventDefault();
+                /*
+                 * Future ACE AI page
+                 */
 
+                window.location.href =
+                    "ace-ai.html";
 
-            const destination =
-                protectedElement.getAttribute("href") ||
-                "index.html";
+            } else {
 
-
-            window.location.href =
-                "auth.html?redirect=" +
-                encodeURIComponent(destination);
-
-        }
-
-    });
-}
+                const go =
+                    confirm(
+                        "ACE AI is available for signed-in users.\n\nSign in to continue?"
+                    );
 
 
-/* =========================================================
-   ACCOUNT BUTTON
-   ========================================================= */
+                if (go) {
 
-function setupAccountButtons() {
+                    window.location.href =
+                        "auth.html";
 
-    document.addEventListener("click", async event => {
+                }
 
-        const accountButton =
-            event.target.closest(
-                "#my-account, .my-account, [data-account]"
-            );
+            }
 
+        } catch (error) {
 
-        if (!accountButton) return;
-
-
-        const user =
-            await getCurrentUser();
-
-
-        if (!user) {
-
-            event.preventDefault();
+            console.error(error);
 
             window.location.href =
                 "auth.html";
 
-            return;
         }
 
+    }
+);
 
-        const href =
-            accountButton.getAttribute("href");
+
+/* =========================================================
+   PROTECTED DOWNLOADS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-protected-download]"
+    )
+    .forEach(element => {
+
+        element.addEventListener(
+            "click",
+            async event => {
+
+                event.preventDefault();
 
 
-        if (!href) {
+                const {
+                    data
+                } =
+                    await supabaseClient
+                        .auth
+                        .getSession();
 
-            event.preventDefault();
 
-            window.location.href =
-                "settings.html";
+                if (!data?.session) {
 
-        }
+                    alert(
+                        "Please sign in before downloading this file."
+                    );
+
+                    window.location.href =
+                        "auth.html";
+
+                    return;
+
+                }
+
+
+                const file =
+                    element.dataset
+                        .protectedDownload;
+
+
+                if (file) {
+
+                    window.location.href =
+                        file;
+
+                }
+
+            }
+        );
 
     });
-}
 
 
 /* =========================================================
-   SETTINGS BUTTON
-   ========================================================= */
+   START
+========================================================= */
 
-document.addEventListener("click", async event => {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    const settingsButton =
-        event.target.closest(
-            "#settings-btn, .settings-btn, [data-settings]"
-        );
-
-
-    if (!settingsButton) return;
-
-
-    event.preventDefault();
-
-
-    const user =
-        await getCurrentUser();
-
-
-    if (!user) {
-
-        window.location.href =
-            "auth.html";
-
-        return;
-    }
-
-
-    window.location.href =
-        "settings.html";
-
-});
-
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
-document.addEventListener("click", async event => {
-
-    const logoutButton =
-        event.target.closest(
-            "#logout-btn, .logout-btn, [data-logout]"
-        );
-
-
-    if (!logoutButton) return;
-
-
-    event.preventDefault();
-
-
-    if (!window.aiSmartOSSupabase) return;
-
-
-    const { error } =
-        await window.aiSmartOSSupabase.auth.signOut();
-
-
-    if (error) {
-
-        console.error(
-            "Logout failed:",
-            error.message
-        );
-
-        return;
-    }
-
-
-    window.location.href =
-        "index.html";
-
-});
-
-
-/* =========================================================
-   ACE AI BUTTON
-   ========================================================= */
-
-function setupAceAI() {
-
-    document.addEventListener("click", async event => {
-
-        const aceButton =
-            event.target.closest(
-                "#ace-ai-button, .ace-ai-button, [data-ace-ai]"
-            );
-
-
-        if (!aceButton) return;
-
-
-        event.preventDefault();
-
-
-        const user =
-            await getCurrentUser();
-
-
-        if (!user) {
-
-            window.location.href =
-                "auth.html?redirect=ace.html";
-
-            return;
-        }
-
-
-        window.location.href =
-            "ace.html";
-
-    });
-}
-
-
-/* =========================================================
-   DOWNLOAD PROTECTION
-   ========================================================= */
-
-document.addEventListener("click", async event => {
-
-    const download =
-        event.target.closest(
-            "[data-download]"
-        );
-
-
-    if (!download) return;
-
-
-    const user =
-        await getCurrentUser();
-
-
-    if (!user) {
-
-        event.preventDefault();
-
-
-        const destination =
-            download.getAttribute("href") ||
-            "index.html";
-
-
-        window.location.href =
-            "auth.html?redirect=" +
-            encodeURIComponent(destination);
+        updateAuthUI();
 
     }
-
-});
-
-
-/* =========================================================
-   GLOBAL AiSmartOS OBJECT
-   ========================================================= */
-
-window.AiSmartOS = {
-
-    getUser: getCurrentUser,
-
-    updateAccountUI: updateAccountUI
-
-};
+);
