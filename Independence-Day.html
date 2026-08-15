@@ -51,62 +51,100 @@
             <div id="accountHeader"></div>
             <a href="auth.html" id="signInBtn" class="header-login">Get Started</a>
         </div>
-<!-- Main Content -->
-<main class="ind-page">
-
-    <div class="ind-badge">
-        🇮🇳 15 August 2026 • 80th Independence Day
-    </div>
-
-    <h1>
-        Celebrating Freedom<br>
-        with <span>AiSmartOS</span>
-    </h1>
-
-    <p class="subtitle">
-        On this special day, AiSmartOS proudly celebrates India’s 80th Independence Day.
-    </p>
-
-    <div class="ind-message">
-
-        <p>
-            Today, on <strong>15th August 2026</strong>, we celebrate the <strong>80th Independence Day</strong> of our great nation. 
-            This day reminds us of the courage, sacrifice, and determination of the freedom fighters who made India free in 1947.
-        </p>
-
-        <p>
-            Independence is not only about freedom from foreign rule — it is also about the freedom to dream, 
-            to innovate, and to build a better future for our country.
-        </p>
-
-        <p>
-            <span class="highlight">AiSmartOS</span> is proudly celebrating this historic day. 
-            As an AI-powered operating system designed and developed in India, 
-            we believe in the vision of a self-reliant and technologically advanced India.
-        </p>
-
-        <p>
-            Just like our freedom fighters fought for the nation’s independence, 
-            we are working to bring intelligent, secure, and future-ready technology to every Indian.
-        </p>
-
-        <p>
-            On this Independence Day, AiSmartOS salutes the spirit of India and commits to contributing 
-            towards a smarter and stronger digital future.
-        </p>
-
-        <p style="margin-top: 20px; font-weight: 600;">
-            Jai Hind! 🇮🇳
-        </p>
-
-    </div>
-
-    <div class="cta-row">
-        <a href="index.html#features" class="primary-cta">🚀 Explore AiSmartOS</a>
-        <a href="index.html#ai" class="secondary-cta">▶ Meet Ace AI</a>
-    </div>
-
-    <a href="index.html" class="back-link">← Continue to Homepage</a>
-
-</main>
     </header>
+
+    <!-- Mobile Drawer Overlay -->
+    <div id="drawerOverlay" class="drawer-overlay"></div>
+
+    <!-- Mobile Drawer -->
+    <aside id="drawer" class="drawer">
+        <div class="drawer-header">
+            <a href="index.html" class="drawer-brand">
+                <div class="brand-logo small">
+                    <img src="IMG-20260805-WA0000.jpg" alt="AiSmartOS Logo">
+                </div>
+                <strong>AiSmartOS</strong>
+            </a>
+            <button id="closeDrawer" class="drawer-close" type="button">×</button>
+        </div>
+
+        <nav class="drawer-nav">
+            <a href="index.html#home"><span class="drawer-nav-icon">⌂</span><span>Home</span></a>
+            <a href="index.html#features"><span class="drawer-nav-icon">✦</span><span>Features</span></a>
+            <a href="index.html#ai"><span class="drawer-nav-icon">✧</span><span>AI Core</span></a>
+            <a href="index.html#system"><span class="drawer-nav-icon">◇</span><span>System</span></a>
+            <a href="index.html#about"><span class="drawer-nav-icon">ⓘ</span><span>About</span></a>
+            <a href="index.html#contact"><span class="drawer-nav-icon">✉</span><span>Contact</span></a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ind-page">
+
+        <div class="ind-badge">
+            🇮🇳 15 August 2026 • 80th Independence Day
+        </div>
+
+        <h1>
+            Celebrating Freedom<br>
+            with <span>AiSmartOS</span>
+        </h1>
+
+        <p class="subtitle">
+            On this special day, AiSmartOS proudly celebrates India’s 80th Independence Day.
+        </p>
+
+        <div class="ind-message">
+
+            <p>
+                Today, on <strong>15th August 2026</strong>, we celebrate the <strong>80th Independence Day</strong> of our great nation. 
+                This day reminds us of the courage, sacrifice, and determination of the freedom fighters who made India free in 1947.
+            </p>
+
+            <p>
+                Independence is not only about freedom from foreign rule — it is also about the freedom to dream, 
+                to innovate, and to build a better future for our country.
+            </p>
+
+            <p>
+                <span class="highlight">AiSmartOS</span> is proudly celebrating this historic day. 
+                As an AI-powered operating system designed and developed in India, 
+                we believe in the vision of a self-reliant and technologically advanced India.
+            </p>
+
+            <p>
+                Just like our freedom fighters fought for the nation’s independence, 
+                we are working to bring intelligent, secure, and future-ready technology to every Indian.
+            </p>
+
+            <p>
+                On this Independence Day, AiSmartOS salutes the spirit of India and commits to contributing 
+                towards a smarter and stronger digital future.
+            </p>
+
+            <p style="margin-top: 20px; font-weight: 600;">
+                Jai Hind! 🇮🇳
+            </p>
+
+        </div>
+
+        <div class="cta-row">
+            <a href="index.html#features" class="primary-cta">🚀 Explore AiSmartOS</a>
+            <a href="index.html#ai" class="secondary-cta">▶ Meet Ace AI</a>
+        </div>
+
+        <a href="index.html" class="back-link">← Continue to Homepage</a>
+
+    </main>
+
+    <footer class="ind-footer">
+        © 2026 AiSmartOS • Made with ❤️ in India 🇮🇳
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+    <script src="independence-day.js"></script>
+
+</body>
+</html>
