@@ -1,0 +1,178 @@
+/* =========================================================
+   Independence Day Special Styles
+   ========================================================= */
+
+.independence-page {
+    background: #03050d;
+    min-height: 100vh;
+}
+
+/* Soft Indian Flag Background */
+.flag-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 153, 51, 0.13) 0%,
+        rgba(255, 255, 255, 0.04) 48%,
+        rgba(19, 136, 8, 0.11) 100%
+    );
+    pointer-events: none;
+}
+
+.flag-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(255, 153, 51, 0.08) 50%,
+        transparent 60%
+    );
+    animation: flagWave 14s ease-in-out infinite;
+}
+
+@keyframes flagWave {
+    0%, 100% { transform: translateX(-6%); }
+    50% { transform: translateX(6%); }
+}
+
+/* Main Content */
+.ind-page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 130px 24px 90px;
+    text-align: center;
+}
+
+.ind-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
+    color: #03050d;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 9px 22px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 28px rgba(255, 153, 51, 0.35);
+}
+
+.ind-page h1 {
+    font-size: clamp(38px, 7vw, 60px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+.ind-page h1 span {
+    color: #247cff;
+}
+
+.subtitle {
+    font-size: clamp(18px, 3vw, 23px);
+    color: #c8d0e8;
+    margin-bottom: 36px;
+    font-weight: 500;
+}
+
+.ind-message {
+    background: rgba(12, 20, 48, 0.7);
+    border: 1px solid rgba(60, 130, 255, 0.22);
+    border-radius: 20px;
+    padding: 34px 30px;
+    margin: 42px 0;
+    backdrop-filter: blur(14px);
+    text-align: left;
+    line-height: 1.75;
+    color: #d7dcec;
+    font-size: 16px;
+}
+
+.ind-message p {
+    margin-bottom: 18px;
+}
+
+.ind-message p:last-child {
+    margin-bottom: 0;
+}
+
+.highlight {
+    color: #ffb347;
+    font-weight: 600;
+}
+
+.cta-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 42px;
+}
+
+.cta-row a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.primary-cta {
+    background: linear-gradient(135deg, #0b75ff, #573cff);
+    color: white;
+    box-shadow: 0 8px 28px rgba(40, 110, 255, 0.4);
+}
+
+.primary-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(40, 110, 255, 0.5);
+}
+
+.secondary-cta {
+    background: transparent;
+    border: 1px solid rgba(100, 150, 255, 0.45);
+    color: #c8d0e8;
+}
+
+.secondary-cta:hover {
+    border-color: #247cff;
+    color: white;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 55px;
+    color: #7a8bb8;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.back-link:hover {
+    color: #247cff;
+}
+
+.ind-footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: #7a8bb8;
+    font-size: 13px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .ind-page {
+        padding: 110px 16px 70px;
+    }
+
+    .ind-message {
+        padding: 26px 18px;
+        font-size: 15px;
+    }
+}
