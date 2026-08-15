@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 80th Independence Day — AiSmartOS</title>
+    <meta name="description" content="AiSmartOS celebrates India's 80th Independence Day. Built in India, for the future.">
+    <link rel="icon" type="image/jpeg" href="IMG-20260805-WA0000.jpg">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body.independence-page {
+            background: #03050d;
+            min-height: 100vh;
+        }
+
+        .flag-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 153, 51, 0.13) 0%,
+                rgba(255, 255, 255, 0.04) 48%,
+                rgba(19, 136, 8, 0.11) 100%
+            );
+            pointer-events: none;
+        }
+
+        .flag-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                105deg,
+                transparent 40%,
+                rgba(255, 153, 51, 0.07) 50%,
+                transparent 60%
+            );
+            animation: flagWave 14s ease-in-out infinite;
+        }
+
+        @keyframes flagWave {
+            0%, 100% { transform: translateX(-6%); }
+            50% { transform: translateX(6%); }
+        }
+
+        .ind-page {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 130px 24px 90px;
+            text-align: center;
+        }
+
+        .ind-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff9933, #ffffff, #138808);
+            color: #03050d;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 9px 22px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 28px rgba(255, 153, 51, 0.35);
+        }
+
+        .ind-page h1 {
+            font-size: clamp(38px, 7vw, 60px);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+
+        .ind-page h1 span {
+            color: #247cff;
+        }
+
+        .ind-page .subtitle {
+            font-size: clamp(18px, 3vw, 23px);
+            color: #c8d0e8;
+            margin-bottom: 36px;
+            font-weight: 500;
+        }
+
+        .ind-message {
+            background: rgba(12, 20, 48, 0.7);
+            border: 1px solid rgba(60, 130, 255, 0.22);
+            border-radius: 20px;
+            padding: 34px 30px;
+            margin: 42px 0;
+            backdrop-filter: blur(14px);
+            text-align: left;
+            line-height: 1.75;
+            color: #d7dcec;
+            font-size: 16px;
+        }
+
+        .ind-message p {
+            margin-bottom: 18px;
+        }
+
+        .ind-message p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: #ffb347;
+            font-weight: 600;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 42px;
+        }
+
+        .cta-row a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.25s ease;
+        }
+
+        .primary-cta {
+            background: linear-gradient(135deg, #0b75ff, #573cff);
+            color: white;
+            box-shadow: 0 8px 28px rgba(40, 110, 255, 0.4);
+        }
+
+        .primary-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 32px rgba(40, 110, 255, 0.5);
+        }
+
+        .secondary-cta {
+            background: transparent;
+            border: 1px solid rgba(100, 150, 255, 0.45);
+            color: #c8d0e8;
+        }
+
+        .secondary-cta:hover {
+            border-color: #247cff;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 55px;
+            color: #7a8bb8;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: #247cff;
+        }
+
+        @media (max-width: 600px) {
+            .ind-page {
+                padding: 110px 16px 70px;
+            }
+            .ind-message {
+                padding: 26px 18px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="independence-page">
+
+    <div class="flag-bg"></div>
+
+    <!-- HEADER (same as main site) -->
+    <header class="site-header">
+        <div class="header-left">
+            <button id="menuBtn" class="menu-btn" type="button" aria-label="Open navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <a href="index.html" class="brand" aria-label="AiSmartOS Home">
+                <div class="brand-logo">
+                    <img src="IMG-20260805-WA0000.jpg" alt="AiSmartOS Logo">
+                </div>
+                <div class="brand-name">
+                    AiSmart<span>OS</span>
+                </div>
+            </a>
+        </div>
+
+        <nav class="desktop-nav" aria-label="Main navigation">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#ai">Ace AI</a>
+            <a href="index.html#system">System</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+
+        <div class="header-right">
+            <div id="accountHeader"></div>
+            <a href="auth.html" id="signInBtn" class="header-login">Get Started</a>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Overlay -->
+    <div id="drawerOverlay" class="drawer-overlay"></div>
+
+    <!-- Mobile Drawer -->
+    <aside id="drawer" class="drawer">
+        <div class="drawer-header">
+            <a href="index.html" class="drawer-brand">
+                <div class="brand-logo small">
+                    <img src="IMG-20260805-WA0000.jpg" alt="AiSmartOS Logo">
+                </div>
+                <strong>AiSmartOS</strong>
+            </a>
+            <button id="closeDrawer" class="drawer-close" type="button">×</button>
+        </div>
+
+        <nav class="drawer-nav">
+            <a href="index.html#home"><span class="drawer-nav-icon">⌂</span><span>Home</span></a>
+            <a href="index.html#features"><span class="drawer-nav-icon">✦</span><span>Features</span></a>
+            <a href="index.html#ai"><span class="drawer-nav-icon">✧</span><span>AI Core</span></a>
+            <a href="index.html#system"><span class="drawer-nav-icon">◇</span><span>System</span></a>
+            <a href="index.html#about"><span class="drawer-nav-icon">ⓘ</span><span>About</span></a>
+            <a href="index.html#contact"><span class="drawer-nav-icon">✉</span><span>Contact</span></a>
+        </nav>
+    </aside>
+
+    <main class="ind-page">
+        <div class="ind-badge">
+            🇮🇳 15 August 2026 • 80th Independence Day
+        </div>
+
+        <h1>
+            Freedom. Innovation.<br>
+            <span>AiSmartOS</span>
+        </h1>
+
+        <p class="subtitle">
+            Celebrating 80 years of independence with technology built in India.
+        </p>
+
+        <div class="ind-message">
+            <p>
+                On this historic day, we remember the courage of those who fought for our freedom.
+                Today, that same spirit lives on — in every line of code, every idea, and every dream
+                of a self-reliant digital India.
+            </p>
+            <p>
+                <span class="highlight">AiSmartOS</span> is our contribution to that dream:
+                an AI-powered operating system conceived and designed in India —
+                private by default, intelligent by design, and built for the next generation.
+            </p>
+            <p>
+                From the freedom fighters of 1947 to the innovators of 2026 —
+                the journey continues. <strong>Jai Hind.</strong>
+            </p>
+        </div>
+
+        <div class="cta-row">
+            <a href="index.html#features" class="primary-cta">🚀 Explore AiSmartOS</a>
+            <a href="index.html#ai" class="secondary-cta">▶ Meet Ace AI</a>
+        </div>
+
+        <a href="index.html" class="back-link">← Continue to Homepage</a>
+    </main>
+
+    <footer style="text-align:center; padding: 30px 20px; color:#7a8bb8; font-size:13px;">
+        © 2026 AiSmartOS • Made with ❤️ in India 🇮🇳
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+
+    <script>
+        // Simple drawer for this page
+        const menuBtn = document.getElementById("menuBtn");
+        const closeDrawer = document.getElementById("closeDrawer");
+        const drawer = document.getElementById("drawer");
+        const drawerOverlay = document.getElementById("drawerOverlay");
+
+        function openDrawer() {
+            drawer?.classList.add("open");
+            drawerOverlay?.classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
+        function closeDrawerMenu() {
+            drawer?.classList.remove("open");
+            drawerOverlay?.classList.remove("open");
+            document.body.style.overflow = "";
+        }
+
+        menuBtn?.addEventListener("click", openDrawer);
+        closeDrawer?.addEventListener("click", closeDrawerMenu);
+        drawerOverlay?.addEventListener("click", closeDrawerMenu);
+    </script>
+</body>
+</html>
