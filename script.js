@@ -3,6 +3,11 @@
    Main Website JavaScript
 ========================================================= */
 
+
+/* =========================================================
+   SUPABASE CONFIG
+========================================================= */
+
 const SUPABASE_URL =
     "https://mxkzwbgtvaccfwlaovhr.supabase.co";
 
@@ -10,11 +15,30 @@ const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_ttq-ivZPAf1btYyjvZYT7g_fN1TEyUt";
 
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
+/* =========================================================
+   SUPABASE CLIENT
+========================================================= */
+
+let supabaseClient = null;
+
+if (
+    window.supabase &&
+    typeof window.supabase.createClient === "function"
+) {
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+} else {
+
+    console.error(
+        "Supabase library not loaded. Check your Supabase CDN script in index.html."
     );
+
+}
 
 
 /* =========================================================
@@ -59,6 +83,14 @@ const heroUserName =
 
 
 /* =========================================================
+   ACE AI WEBSITE
+========================================================= */
+
+const ACE_AI_URL =
+    "https://aismartos.github.io/Ace-Ai/";
+
+
+/* =========================================================
    DRAWER
 ========================================================= */
 
@@ -68,7 +100,9 @@ function openDrawer() {
 
     drawer.classList.add("open");
 
-    drawerOverlay?.classList.add("open");
+    if (drawerOverlay) {
+        drawerOverlay.classList.add("open");
+    }
 
     document.body.style.overflow = "hidden";
 }
@@ -80,11 +114,15 @@ function closeDrawerMenu() {
 
     drawer.classList.remove("open");
 
-    drawerOverlay?.classList.remove("open");
+    if (drawerOverlay) {
+        drawerOverlay.classList.remove("open");
+    }
 
     document.body.style.overflow = "";
 }
 
+
+/* Open drawer */
 
 menuBtn?.addEventListener(
     "click",
@@ -92,11 +130,15 @@ menuBtn?.addEventListener(
 );
 
 
+/* Close drawer */
+
 closeDrawer?.addEventListener(
     "click",
     closeDrawerMenu
 );
 
+
+/* Close drawer by clicking outside */
 
 drawerOverlay?.addEventListener(
     "click",
@@ -104,18 +146,18 @@ drawerOverlay?.addEventListener(
 );
 
 
-/* Close drawer when clicking a link */
+/* Close drawer after navigation */
 
-document.querySelectorAll(
-    ".drawer-nav a"
-).forEach(link => {
+document
+    .querySelectorAll(".drawer-nav a")
+    .forEach(link => {
 
-    link.addEventListener(
-        "click",
-        closeDrawerMenu
-    );
+        link.addEventListener(
+            "click",
+            closeDrawerMenu
+        );
 
-});
+    });
 
 
 /* =========================================================
@@ -128,8 +170,10 @@ function getFirstName(user) {
         return "User";
     }
 
+
     const metadata =
         user.user_metadata || {};
+
 
     let name =
         metadata.full_name ||
@@ -142,8 +186,8 @@ function getFirstName(user) {
 
     name =
         String(name)
-        .trim()
-        .split(/\s+/)[0];
+            .trim()
+            .split(/\s+/)[0];
 
 
     return name || "User";
@@ -156,10 +200,14 @@ function getFirstName(user) {
 
 function getAvatar(user) {
 
-    if (!user) return null;
+    if (!user) {
+        return null;
+    }
+
 
     const metadata =
         user.user_metadata || {};
+
 
     return (
         metadata.avatar_url ||
@@ -167,39 +215,51 @@ function getAvatar(user) {
         metadata.photo_url ||
         null
     );
+
 }
 
 
 /* =========================================================
-   CREATE AVATAR
+   DRAWER AVATAR
 ========================================================= */
 
 function setDrawerAvatar(user) {
 
     if (!drawerAvatar) return;
 
+
     const avatar =
         getAvatar(user);
 
+
     drawerAvatar.innerHTML = "";
+
 
     if (avatar) {
 
         const img =
             document.createElement("img");
 
-        img.src = avatar;
 
-        img.alt = "Profile";
+        img.src =
+            avatar;
 
-        img.onerror = () => {
+
+        img.alt =
+            "Profile";
+
+
+        img.onerror = function () {
 
             drawerAvatar.innerHTML =
                 "👤";
 
         };
 
-        drawerAvatar.appendChild(img);
+
+        drawerAvatar.appendChild(
+            img
+        );
 
     } else {
 
@@ -207,6 +267,7 @@ function setDrawerAvatar(user) {
             "👤";
 
     }
+
 }
 
 
@@ -216,14 +277,23 @@ function setDrawerAvatar(user) {
 
 function renderHeaderAccount(user) {
 
-    if (!accountHeader) return;
+    if (!accountHeader) {
+        return;
+    }
 
-    accountHeader.innerHTML = "";
 
-    if (!user) return;
+    accountHeader.innerHTML =
+        "";
+
+
+    if (!user) {
+        return;
+    }
+
 
     const name =
         getFirstName(user);
+
 
     const avatar =
         getAvatar(user);
@@ -232,39 +302,63 @@ function renderHeaderAccount(user) {
     const link =
         document.createElement("a");
 
+
     link.href =
         "settings.html";
+
 
     link.className =
         "header-account";
 
+
+    /* Avatar */
 
     if (avatar) {
 
         const img =
             document.createElement("img");
 
-        img.src = avatar;
+
+        img.src =
+            avatar;
+
 
         img.className =
             "header-avatar";
 
+
         img.alt =
             "Profile";
 
-        link.appendChild(img);
+
+        img.onerror =
+            function () {
+
+                this.remove();
+
+            };
+
+
+        link.appendChild(
+            img
+        );
 
     }
 
 
+    /* First name */
+
     const nameElement =
         document.createElement("span");
+
 
     nameElement.className =
         "header-account-name";
 
+
     nameElement.textContent =
         name;
+
 
     link.appendChild(
         nameElement
@@ -274,14 +368,28 @@ function renderHeaderAccount(user) {
     accountHeader.appendChild(
         link
     );
+
 }
 
 
 /* =========================================================
-   RENDER LOGIN STATE
+   UPDATE AUTH UI
 ========================================================= */
 
 async function updateAuthUI() {
+
+    /* Supabase unavailable */
+
+    if (!supabaseClient) {
+
+        console.warn(
+            "Supabase client unavailable."
+        );
+
+        return;
+
+    }
+
 
     try {
 
@@ -307,22 +415,26 @@ async function updateAuthUI() {
 
 
         const session =
-            data?.session;
+            data?.session || null;
+
 
         const user =
             session?.user || null;
 
 
+        /* =================================================
+           LOGGED IN
+        ================================================= */
+
         if (user) {
 
-            /* =========================
-               LOGGED IN
-            ========================= */
+            /* Header button */
 
             if (signInBtn) {
 
                 signInBtn.textContent =
                     "My Account";
+
 
                 signInBtn.href =
                     "settings.html";
@@ -330,15 +442,29 @@ async function updateAuthUI() {
             }
 
 
-            drawerAccount
-                ?.classList
-                .remove("hidden");
+            /* Drawer account */
+
+            if (drawerAccount) {
+
+                drawerAccount.classList.remove(
+                    "hidden"
+                );
+
+            }
 
 
-            drawerSettings
-                ?.classList
-                .remove("hidden");
+            /* Drawer settings */
 
+            if (drawerSettings) {
+
+                drawerSettings.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+
+            /* First name */
 
             const firstName =
                 getFirstName(user);
@@ -360,21 +486,33 @@ async function updateAuthUI() {
             }
 
 
-            setDrawerAvatar(user);
+            /* Avatar */
 
-            renderHeaderAccount(user);
+            setDrawerAvatar(
+                user
+            );
 
 
-        } else {
+            /* Desktop account */
 
-            /* =========================
-               LOGGED OUT
-            ========================= */
+            renderHeaderAccount(
+                user
+            );
+
+        }
+
+
+        /* =================================================
+           LOGGED OUT
+        ================================================= */
+
+        else {
 
             if (signInBtn) {
 
                 signInBtn.textContent =
                     "Get Started";
+
 
                 signInBtn.href =
                     "auth.html";
@@ -382,14 +520,22 @@ async function updateAuthUI() {
             }
 
 
-            drawerAccount
-                ?.classList
-                .add("hidden");
+            if (drawerAccount) {
+
+                drawerAccount.classList.add(
+                    "hidden"
+                );
+
+            }
 
 
-            drawerSettings
-                ?.classList
-                .add("hidden");
+            if (drawerSettings) {
+
+                drawerSettings.classList.add(
+                    "hidden"
+                );
+
+            }
 
 
             if (heroUserName) {
@@ -422,94 +568,79 @@ async function updateAuthUI() {
 
 
 /* =========================================================
-   AUTH STATE LISTENER
+   SUPABASE AUTH STATE
 ========================================================= */
 
-supabaseClient
-    .auth
-    .onAuthStateChange(
-        (_event, session) => {
+if (supabaseClient) {
 
-            const user =
-                session?.user || null;
+    supabaseClient
+        .auth
+        .onAuthStateChange(
+            (_event, session) => {
+
+                const user =
+                    session?.user || null;
 
 
-            updateAuthUI();
+                updateAuthUI();
 
 
-            if (user) {
+                if (user) {
 
-                const firstName =
-                    getFirstName(user);
+                    const firstName =
+                        getFirstName(user);
 
-                if (heroUserName) {
 
-                    heroUserName.textContent =
-                        firstName;
+                    if (heroUserName) {
+
+                        heroUserName.textContent =
+                            firstName;
+
+                    }
+
+                } else {
+
+                    if (heroUserName) {
+
+                        heroUserName.textContent =
+                            "User";
+
+                    }
 
                 }
 
             }
+        );
 
-        }
-    );
+}
 
 
 /* =========================================================
    ACE AI
+   IMPORTANT:
+   ACE AI DOES NOT REQUIRE AiSmartOS LOGIN
 ========================================================= */
 
-aceAiButton?.addEventListener(
-    "click",
-    async () => {
+if (aceAiButton) {
 
-        try {
+    aceAiButton.addEventListener(
+        "click",
+        function () {
 
-            const {
-                data
-            } =
-                await supabaseClient
-                    .auth
-                    .getSession();
-
-
-            if (data?.session) {
-
-                /*
-                 * Future ACE AI page
-                 */
-
-                window.location.href =
-                    "ace-ai.html";
-
-            } else {
-
-                const go =
-                    confirm(
-                        "ACE AI is available for signed-in users.\n\nSign in to continue?"
-                    );
-
-
-                if (go) {
-
-                    window.location.href =
-                        "auth.html";
-
-                }
-
-            }
-
-        } catch (error) {
-
-            console.error(error);
+            /*
+             * Anyone can open ACE AI.
+             *
+             * No AiSmartOS authentication
+             * check is performed here.
+             */
 
             window.location.href =
-                "auth.html";
+                ACE_AI_URL;
 
         }
+    );
 
-    }
-);
+}
 
 
 /* =========================================================
@@ -524,42 +655,85 @@ document
 
         element.addEventListener(
             "click",
-            async event => {
+            async function (event) {
 
                 event.preventDefault();
 
 
-                const {
-                    data
-                } =
-                    await supabaseClient
-                        .auth
-                        .getSession();
+                /* Supabase unavailable */
 
-
-                if (!data?.session) {
+                if (!supabaseClient) {
 
                     alert(
-                        "Please sign in before downloading this file."
+                        "Authentication service is currently unavailable."
                     );
-
-                    window.location.href =
-                        "auth.html";
 
                     return;
 
                 }
 
 
-                const file =
-                    element.dataset
-                        .protectedDownload;
+                try {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient
+                            .auth
+                            .getSession();
 
 
-                if (file) {
+                    if (error) {
 
-                    window.location.href =
-                        file;
+                        console.error(
+                            "Download session error:",
+                            error
+                        );
+
+                        return;
+
+                    }
+
+
+                    /* Not logged in */
+
+                    if (!data?.session) {
+
+                        alert(
+                            "Please sign in before downloading this file."
+                        );
+
+
+                        window.location.href =
+                            "auth.html";
+
+
+                        return;
+
+                    }
+
+
+                    /* Logged in */
+
+                    const file =
+                        element.dataset
+                            .protectedDownload;
+
+
+                    if (file) {
+
+                        window.location.href =
+                            file;
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Download error:",
+                        error
+                    );
 
                 }
 
@@ -570,12 +744,17 @@ document
 
 
 /* =========================================================
-   START
+   PAGE INITIALIZATION
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    function () {
+
+        console.log(
+            "AiSmartOS website loaded successfully."
+        );
+
 
         updateAuthUI();
 
