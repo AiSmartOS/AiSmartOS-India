@@ -1,24 +1,79 @@
-AiSmartOS website package
-=========================
+# AiSmartOS
 
-Files:
-- index.html      Main landing page
-- auth.html       Sign in / Create account + Google/Facebook/GitHub/Discord
-- settings.html   My Account + profile picture + first name + sign out
-- ace.html        Protected ACE AI page
-- style.css       Full responsive design
-- app.js          Home page auth state, drawer/mobile behavior, ACE gate
-- auth.js         Email/password auth, OAuth, password strength, profile creation
-- settings.js     Profile editing
-- config.js       Supabase URL/key configuration
-- setup.sql       Database table/RLS starter SQL
+**AiSmartOS** is a next-generation AI-powered operating system concept designed and developed in India.
 
-IMPORTANT:
-1. The UI works immediately with a localStorage demo account if Supabase is not configured.
-2. For real accounts and social login, configure Supabase in config.js.
-3. Run setup.sql in Supabase SQL Editor.
-4. Create a PUBLIC Storage bucket called "avatars".
-5. Enable Google, Facebook, GitHub and Discord under Supabase Authentication > Providers.
-6. Add your GitHub Pages site and auth.html callback URL to Supabase Authentication > URL Configuration.
-7. Never put a Supabase service_role key in these files. Use only the anon/publishable key.
-8. For downloadable files you add later, use the same auth check before starting the download. Do not rely on hiding a download button alone for private files.
+Smarter. Faster. Safer. Built for the future.
+
+🌐 Live Website: [https://aismartos.github.io/AiSmartOS-India/](https://aismartos.github.io/AiSmartOS-India/)
+
+---
+
+## 🇮🇳 Independence Day Special
+
+In honor of India’s **80th Independence Day (15 August 2026)**, a special celebratory page has been added.
+
+- When visitors open the website (till **31 August 2026**), they are automatically taken to the Independence Day special page.
+- From the special page, users can click **Home** or **Continue to Homepage** to visit the main website.
+- After 31 August 2026, the automatic redirect will stop and the normal homepage will open directly.
+
+---
+
+## ✨ Features
+
+- Modern and clean dark-themed UI
+- Fully responsive design (Desktop + Mobile)
+- AI-focused concept presentation
+- Smooth navigation
+- Independence Day special page with Indian tricolour theme
+- Privacy-first and future-ready vision
+
+---
+
+## 📁 Project Structure
+
+AiSmartOS-India/
+├── index.html                 # Main homepage (with temporary redirect)
+├── Independence-Day.html      # Special Independence Day page
+├── style.css                  # Main stylesheet
+├── independence-day.css       # Styles for Independence Day page
+├── script.js                  # Main JavaScript
+├── independence-day.js        # JavaScript for Independence Day page
+├── IMG-20260805-WA0000.jpg    # Logo / favicon
+└── README.md
+
+---
+
+## 🚀 How It Works
+
+1. Visitor opens the website.
+2. Till 31 August 2026 → Automatically redirected to `Independence-Day.html`.
+3. User can click **Home** or **Continue to Homepage** to go to the normal site.
+4. After 31 August 2026 → Redirect automatically stops.
+
+---
+
+## 🛠️ Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+- GitHub Pages (for hosting)
+
+---
+
+## 📌 Notes
+
+- The Independence Day redirect is temporary and will automatically stop after **31 August 2026**.
+- All navigation links on the Independence Day page correctly lead back to the main website.
+- Designed with love in India 🇮🇳
+
+---
+
+## 📬 Contact
+
+More communication and community features will be added to AiSmartOS in the future.
+
+---
+
+**Made with ❤️ in India**  
+**Jai Hind!**
