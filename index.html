@@ -4,87 +4,99 @@
 <head>
 
     <!-- Independence Day Special (Active till 31 August 2026) -->
-<script>
-    (function () {
-        const today = new Date();
-        const endDate = new Date(2026, 7, 31); // 31 August 2026
+    <script>
+        (function () {
+            const today = new Date();
+            const endDate = new Date(2026, 7, 31); // 31 August 2026
 
-        // Check if user wants to skip the Independence Day page
-        const urlParams = new URLSearchParams(window.location.search);
-        const skipIndependence = urlParams.get("home") === "true";
+            // If user already clicked Home, don't redirect
+            if (sessionStorage.getItem("goToHome") === "yes") {
+                return;
+            }
 
-        if (today <= endDate && !skipIndependence) {
-            window.location.replace("Independence-Day.html");
-        }
-    })();
-</script>
+            if (today <= endDate) {
+                window.location.replace("Independence-Day.html");
+            }
+        })();
+    </script>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>AiSmartOS — Next-Gen AI Operating System</title>
 
-    <title>
-        AiSmartOS — Next-Gen AI Operating System
-    </title>
+    <meta name="description" content="AiSmartOS — India's next-generation AI-powered operating system.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="AiSmartOS">
 
-    <meta
-        name="description"
-        content="AiSmartOS — India's next-generation AI-powered operating system."
-    >
-
-    <meta
-        name="robots"
-        content="index, follow"
-    >
-
-    <meta
-        name="author"
-        content="AiSmartOS"
-    >
-
-    <link
-        rel="icon"
-        type="image/jpeg"
-        href="IMG-20260805-WA0000.jpg"
-    >
-
-    <link
-        rel="apple-touch-icon"
-        href="IMG-20260805-WA0000.jpg"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="icon" type="image/jpeg" href="IMG-20260805-WA0000.jpg">
+    <link rel="apple-touch-icon" href="IMG-20260805-WA0000.jpg">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      FIXED HEADER
 ===================================================== -->
-
 <header class="site-header">
 
     <div class="header-left">
 
+        <button id="menuBtn" class="menu-btn" type="button" aria-label="Open navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-        <!-- MOBILE MENU BUTTON -->
+        <a href="#home" class="brand" aria-label="AiSmartOS Home">
+            <div class="brand-logo">
+                <img src="IMG-20260805-WA0000.jpg" alt="AiSmartOS Logo">
+            </div>
+            <div class="brand-name">
+                AiSmart<span>OS</span>
+            </div>
+        </a>
 
-        <button
-            id="menuBtn"
-            class="menu-btn"
-            type="button"
-            aria-label="Open navigation menu"
-            aria-controls="drawer"
-            aria-expanded="false"
-        >
+    </div>
 
-            <span
+    <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#home" class="active">Home</a>
+        <a href="#features">Features</a>
+        <a href="#ai">Ace AI</a>
+        <a href="#system">System</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-right">
+        <div id="accountHeader"></div>
+        <a href="auth.html" id="signInBtn" class="header-login">Get Started</a>
+    </div>
+
+</header>
+
+<!-- Mobile Drawer Overlay -->
+<div id="drawerOverlay" class="drawer-overlay"></div>
+
+<!-- Mobile Drawer -->
+<aside id="drawer" class="drawer">
+
+    <div class="drawer-header">
+        <a href="#home" class="drawer-brand">
+            <div class="brand-logo small">
+                <img src="IMG-20260805-WA0000.jpg" alt="AiSmartOS Logo">
+            </div>
+            <strong>AiSmartOS</strong>
+        </a>
+        <button id="closeDrawer" class="drawer-close" type="button">×</button>
+    </div>
+
+    <nav class="drawer-nav">
+        <a href="#home"><span class="drawer-nav-icon">⌂</span><span>Home</span></a>
+        <a href="#features"><span class="drawer-nav-icon">✦</span><span>Features</span></a>
+        <a href="#ai"><span class="drawer-nav-icon">✧</span><span>AI Core</span></a>
+        <a href="#system"><span class="drawer-nav-icon">◇</span><span>System</span></a>
+        <a href="#about"><span class="drawer-nav-icon">ⓘ</span><span>About</span></a>
+        <a href="#contact"><span class="
