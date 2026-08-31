@@ -1,16 +1,12 @@
 (() => {
   const cfg = window.AISMART_CONFIG || {};
-  const ready =
-    cfg.SUPABASE_URL?.startsWith("http") &&
-    cfg.SUPABASE_ANON_KEY &&
-    !cfg.SUPABASE_ANON_KEY.includes("PASTE_");
 
-  // Re-use existing initialized client instance or create a new one
+  // 1. MUST use the pre-initialized client from config.js
   const sb =
     window.supabaseClient ||
     window.aiSmartOSSupabase ||
-    (ready && window.supabase
-      ? window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY)
+    (typeof supabase !== "undefined" && cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY
+      ? supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY)
       : null);
 
   const $ = (id) => document.getElementById(id);
@@ -22,27 +18,27 @@
   let user = null;
   let avatarUrl = null;
 
-  // Load and populate user settings data
   async function load() {
     if (sb) {
-      // 1. Await session retrieval from browser storage to avoid instant redirects
-      const {
-        data: { session },
-        error,
-      } = await sb.auth.getSession();
+      // Get current active session safely
+      const { data: { session }, error } = await sb.auth.getSession();
 
-      if (!session || error) {
+      if (error || !session) {
         return location.replace("auth.html");
       }
 
       user = session.user;
 
-      // 2. Query user metadata from Supabase database
-      const { data } = await sb
+      // Fetch profile from database
+      const { data, error: dbError } = await sb
         .from(cfg.PROFILE_TABLE || "profiles")
         .select("*")
         .eq("id", user.id)
         .maybeSingle();
+
+      if (dbError) {
+        console.warn("Could not fetch profile table:", dbError.message);
+      }
 
       const firstName =
         data?.first_name ||
@@ -60,7 +56,6 @@
 
       if ($("profileAvatar")) $("profileAvatar").src = avatarUrl;
     } else {
-      // Fallback for local storage session tracking
       const raw = localStorage.getItem("aism_user");
       if (!raw) return location.replace("auth.html");
 
@@ -74,7 +69,7 @@
     }
   }
 
-  // Handle local avatar file preview
+  // Handle local avatar preview
   const editAvatarEl = $("editAvatar");
   if (editAvatarEl) {
     editAvatarEl.addEventListener("change", (e) => {
@@ -85,12 +80,14 @@
     });
   }
 
-  // Handle saving profile changes
+  // Save changes
   const saveBtn = $("saveProfile");
   if (saveBtn) {
     saveBtn.onclick = async () => {
       const nameEl = $("editName");
       const msgEl = $("settingsMessage");
+
+      if (msgEl) msgEl.textContent = ""; // Clear previous message
 
       const name = nameEl ? nameEl.value.trim() : "";
       if (!name) {
@@ -102,7 +99,7 @@
 
       try {
         if (sb) {
-          // Upload new image if selected
+          // Upload avatar image if selected
           if (file) {
             const ext = (file.name.split(".").pop() || "png").toLowerCase();
             const path = `${user.id}/${Date.now()}.${ext}`;
@@ -119,7 +116,7 @@
               .getPublicUrl(path).data.publicUrl;
           }
 
-          // Update profile row in database
+          // Update database table
           const { error } = await sb
             .from(cfg.PROFILE_TABLE || "profiles")
             .upsert({ id: user.id, first_name: name, avatar_url: avatarUrl });
@@ -141,7 +138,7 @@
     };
   }
 
-  // Handle user logout
+  // Handle logout
   const logoutBtn = $("logoutBtn");
   if (logoutBtn) {
     logoutBtn.onclick = async () => {
@@ -154,7 +151,6 @@
     };
   }
 
-  // Execute initialization after DOM contents load
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", load);
   } else {
