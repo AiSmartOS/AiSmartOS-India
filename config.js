@@ -7,8 +7,8 @@
   4) Enable Google/Facebook/GitHub/Discord providers and configure their OAuth credentials.
 */
 window.AISMART_CONFIG = {
-  SUPABASE_URL: "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE",
-  SUPABASE_ANON_KEY: "PASTE_YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY_HERE",
+  SUPABASE_URL: "https://mxkzwbgtvaccfwlaovhr.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_ttq-ivZPAf1btYyjvZYT7g_fN1TEyUt",
   PROFILE_TABLE: "profiles",
   AVATAR_BUCKET: "avatars"
 };
