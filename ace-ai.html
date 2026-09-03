@@ -1,3 +1,107 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ACE AI — AiSmartOS</title><link rel="stylesheet" href="style.css"></head>
-<body><header class="site-header"><a class="brand" href="index.html"><span class="brand-mark">A</span>AiSmart<span class="brand-blue">OS</span></a></header><main class="settings-wrap"><section class="profile-card"><div class="mini-label">AiSmartOS AI</div><h1>ACE AI</h1><p style="color:#9ba5b8">This protected AI area is available only after sign-in.</p><textarea id="q" placeholder="Ask ACE AI..." style="width:100%;min-height:130px;background:#101a2c;color:#fff;border:1px solid #334766;border-radius:10px;padding:15px"></textarea><button class="btn primary" style="margin-top:12px" onclick="alert('Connect your AI API/backend here.')">Ask ACE AI</button></section></main></body></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ace AI - AiSmartOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- SITE HEADER -->
+    <header class="site-header">
+        <div class="header-left">
+            <a href="index.html" class="brand">
+                <div class="brand-logo"><span>A</span></div>
+                <div class="brand-name">AiSmart<span>OS</span></div>
+            </a>
+        </div>
+        <nav class="desktop-nav">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="ace.html" class="active">Ace AI</a>
+            <a href="system.html">System</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="header-right">
+            <a href="get-started.html" class="header-login">Get Started</a>
+            <button class="menu-btn" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE DRAWER -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <div class="drawer-brand">
+                <div class="brand-logo small"><span>A</span></div>
+                <strong>AiSmartOS</strong>
+            </div>
+            <button class="drawer-close" id="drawerClose">&times;</button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="features.html"><i class="fa-solid fa-list-check"></i> Features</a>
+            <a href="ace.html" class="active"><i class="fa-solid fa-robot"></i> Ace AI</a>
+            <a href="system.html"><i class="fa-solid fa-microchip"></i> System</a>
+            <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a href="get-started.html" class="drawer-get-started"><i class="fa-solid fa-rocket"></i> Get Started</a>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="simple-section">
+        <div class="section-heading">
+            <span>Personal Assistant</span>
+            <h2>Meet <em>Ace AI</em></h2>
+            <p style="color: #9299ad; margin-top: 15px;">Your core intelligent co-pilot embedded inside the Operating System.</p>
+        </div>
+
+        <div style="max-width: 700px; margin: 40px auto; padding: 35px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 16px; text-align: left;">
+            <h3 style="font-size: 22px; color: #3b82f6; margin-bottom: 15px;"><i class="fa-solid fa-terminal"></i> Always Active, Always Learning</h3>
+            <p style="color: #cbd5e1; line-height: 1.7; margin-bottom: 20px;">
+                Ace AI works silently in the background, analyzing user habits to optimize system performance, draft emails, execute command-line tasks, and control system toggles with conversational commands.
+            </p>
+            <ul style="color: #94a3b8; line-height: 2; padding-left: 20px;">
+                <li>Natural Language System Control</li>
+                <li>Instant File & Context Search</li>
+                <li>Real-time Automated Workflows</li>
+                <li>Zero Cloud Latency for On-Device Tasks</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 AiSmartOS India. All rights reserved.</p>
+        <p>Built for the Future of Computing.</p>
+    </footer>
+
+    <!-- SCRIPT FOR MOBILE DRAWER -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const drawerClose = document.getElementById('drawerClose');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+
+        function openDrawer() {
+            mobileDrawer.classList.add('open');
+            drawerOverlay.classList.add('show');
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('open');
+            drawerOverlay.classList.remove('show');
+        }
+
+        if(menuToggle) menuToggle.addEventListener('click', openDrawer);
+        if(drawerClose) drawerClose.addEventListener('click', closeDrawer);
+        if(drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+    </script>
+</body>
+</html>
