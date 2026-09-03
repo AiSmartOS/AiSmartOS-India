@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture - AiSmartOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- SITE HEADER -->
+    <header class="site-header">
+        <div class="header-left">
+            <a href="index.html" class="brand">
+                <div class="brand-logo"><span>A</span></div>
+                <div class="brand-name">AiSmart<span>OS</span></div>
+            </a>
+        </div>
+        <nav class="desktop-nav">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="ace.html">Ace AI</a>
+            <a href="system.html" class="active">System</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="header-right">
+            <a href="get-started.html" class="header-login">Get Started</a>
+            <button class="menu-btn" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE DRAWER -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <div class="drawer-brand">
+                <div class="brand-logo small"><span>A</span></div>
+                <strong>AiSmartOS</strong>
+            </div>
+            <button class="drawer-close" id="drawerClose">&times;</button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="features.html"><i class="fa-solid fa-list-check"></i> Features</a>
+            <a href="ace.html"><i class="fa-solid fa-robot"></i> Ace AI</a>
+            <a href="system.html" class="active"><i class="fa-solid fa-microchip"></i> System</a>
+            <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a href="get-started.html" class="drawer-get-started"><i class="fa-solid fa-rocket"></i> Get Started</a>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="simple-section">
+        <div class="section-heading">
+            <span>Architecture</span>
+            <h2>System <em>Core & Engine</em></h2>
+            <p style="color: #9299ad; margin-top: 15px;">Built from the kernel up to support hybrid local-cloud neural networks.</p>
+        </div>
+
+        <div class="feature-grid" style="margin-top: 40px;">
+            <div class="feature-card">
+                <div class="feature-icon blue"><i class="fa-solid fa-microchip"></i></div>
+                <h3>NPU Optimization</h3>
+                <p>Fully optimized to leverage Neural Processing Units (NPU) on hardware for seamless execution.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon green"><i class="fa-solid fa-memory"></i></div>
+                <h3>Dynamic RAM Manager</h3>
+                <p>Intelligent memory allocation that frees up RAM by predicting application load requirements.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon orange"><i class="fa-solid fa-shield-cat"></i></div>
+                <h3>Sandboxed Kernels</h3>
+                <p>Isolated execution environments protect system files from unauthorized AI actions.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 AiSmartOS India. All rights reserved.</p>
+        <p>Built for the Future of Computing.</p>
+    </footer>
+
+    <!-- SCRIPT FOR MOBILE DRAWER -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const drawerClose = document.getElementById('drawerClose');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+
+        function openDrawer() {
+            mobileDrawer.classList.add('open');
+            drawerOverlay.classList.add('show');
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('open');
+            drawerOverlay.classList.remove('show');
+        }
+
+        if(menuToggle) menuToggle.addEventListener('click', openDrawer);
+        if(drawerClose) drawerClose.addEventListener('click', closeDrawer);
+        if(drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+    </script>
+</body>
+</html>
