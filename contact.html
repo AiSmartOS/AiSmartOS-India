@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AiSmartOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- SITE HEADER -->
+    <header class="site-header">
+        <div class="header-left">
+            <a href="index.html" class="brand">
+                <div class="brand-logo"><span>A</span></div>
+                <div class="brand-name">AiSmart<span>OS</span></div>
+            </a>
+        </div>
+        <nav class="desktop-nav">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="ace.html">Ace AI</a>
+            <a href="system.html">System</a>
+            <a href="about.html">About</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+        <div class="header-right">
+            <a href="get-started.html" class="header-login">Get Started</a>
+            <button class="menu-btn" id="menuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE DRAWER -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <div class="drawer-brand">
+                <div class="brand-logo small"><span>A</span></div>
+                <strong>AiSmartOS</strong>
+            </div>
+            <button class="drawer-close" id="drawerClose">&times;</button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="features.html"><i class="fa-solid fa-list-check"></i> Features</a>
+            <a href="ace.html"><i class="fa-solid fa-robot"></i> Ace AI</a>
+            <a href="system.html"><i class="fa-solid fa-microchip"></i> System</a>
+            <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+            <a href="contact.html" class="active"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a href="get-started.html" class="drawer-get-started"><i class="fa-solid fa-rocket"></i> Get Started</a>
+        </nav>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="simple-section">
+        <div class="section-heading">
+            <span>Get in Touch</span>
+            <h2>Contact <em>AiSmartOS</em></h2>
+            <p style="color: #9299ad; margin-top: 15px;">Have questions, feedback, or business inquiries? Connect with us!</p>
+        </div>
+
+        <div style="max-width: 600px; margin: 40px auto; display: grid; gap: 20px;">
+            <!-- INSTAGRAM CARD -->
+            <a href="https://instagram.com/aismartos.india" target="_blank" class="feature-card" style="display: flex; align-items: center; gap: 20px; text-decoration: none;">
+                <div class="feature-icon purple" style="margin: 0; font-size: 24px;">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div style="text-align: left;">
+                    <h3 style="color: #ffffff; margin-bottom: 4px;">Instagram</h3>
+                    <p style="color: #38bdf8; margin: 0; font-weight: 600;">@aismartos.india</p>
+                </div>
+            </a>
+
+            <!-- EMAIL CARD -->
+            <a href="mailto:aismartosindia@gmail.com" class="feature-card" style="display: flex; align-items: center; gap: 20px; text-decoration: none;">
+                <div class="feature-icon blue" style="margin: 0; font-size: 24px;">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div style="text-align: left;">
+                    <h3 style="color: #ffffff; margin-bottom: 4px;">Official Email</h3>
+                    <p style="color: #38bdf8; margin: 0; font-weight: 600;">aismartosindia@gmail.com</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 AiSmartOS India. All rights reserved.</p>
+        <p>Built for the Future of Computing.</p>
+    </footer>
+
+    <!-- SCRIPT FOR MOBILE DRAWER -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const drawerClose = document.getElementById('drawerClose');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+
+        function openDrawer() {
+            mobileDrawer.classList.add('open');
+            drawerOverlay.classList.add('show');
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('open');
+            drawerOverlay.classList.remove('show');
+        }
+
+        if(menuToggle) menuToggle.addEventListener('click', openDrawer);
+        if(drawerClose) drawerClose.addEventListener('click', closeDrawer);
+        if(drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+    </script>
+</body>
+</html>
