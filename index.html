@@ -12,6 +12,62 @@
     <link rel="icon" type="image/jpeg" href="IMG-20260805-WA0000.jpg">
     <link rel="apple-touch-icon" href="IMG-20260805-WA0000.jpg">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ACE AI Core Modal Styling */
+        .ace-modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(4, 7, 15, 0.94);
+            backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .ace-modal-container {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            height: 85vh;
+            background: #04070f;
+            border: 1px solid #3df2ff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 0 35px rgba(61, 242, 255, 0.35);
+        }
+
+        .ace-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #3df2ff;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 100;
+            line-height: 1;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .ace-modal-close:hover {
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .ace-modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+        }
+    </style>
 </head>
 
 <body>
@@ -109,7 +165,7 @@
 
             <div class="hero-buttons">
                 <a href="features.html" class="primary-btn">🚀 Explore AiSmartOS</a>
-                <a href="ace-ai.html" class="secondary-btn">▶ Watch Demo</a>
+                <button type="button" class="secondary-btn" onclick="openAceModal()">▶ What Ace AI Does</button>
             </div>
 
             <div class="stats">
@@ -150,6 +206,14 @@
     <img src="acelogo.jpg" alt="ACE AI">
 </button>
 
+<!-- ACE AI Interactive Architecture Modal -->
+<div id="aceModal" class="ace-modal-overlay" aria-hidden="true">
+    <div class="ace-modal-container">
+        <span class="ace-modal-close" onclick="closeAceModal()" title="Close">&times;</span>
+        <iframe src="AiSmartOS ACE AI Core_2.html" class="ace-modal-iframe" title="AiSmartOS ACE AI Core Interactive Architecture"></iframe>
+    </div>
+</div>
+
 <footer>
     <div>© 2026 AiSmartOS. All rights reserved.</div>
     <div>Made with ❤️ in India 🇮🇳</div>
@@ -157,5 +221,34 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
+
+<script>
+    function openAceModal() {
+        const modal = document.getElementById('aceModal');
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeAceModal() {
+        const modal = document.getElementById('aceModal');
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+    }
+
+    // Close modal when clicking on dark overlay outside content box
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('aceModal');
+        if (event.target === modal) {
+            closeAceModal();
+        }
+    });
+
+    // Close modal when pressing Escape key
+    window.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeAceModal();
+        }
+    });
+</script>
 </body>
 </html>
